@@ -504,16 +504,181 @@ By the additive inverse,
     \item $\phi: \Z \to \Z/n \longrightarrow \phi(k) = k\mod n$ 
     \item $\phi: \Z/mn \to \Z/n$ 
     \begin{center}
-        \begin{tabular*}{2in}{|c|c|}
+        \begin{tabular*}{0.85in}{|c|c|}
             $\Z/6$ & $\Z/3$\\
-            \hline\\
+            \hline
             $0$ & $0$\\
             $1$ & $1$\\
             $2$ & $2$\\
             $3$ & $0$\\
             $4$ & $1$\\
-            $5$ & $2$
+            $5$ & $2$\\
+            \hline
         \end{tabular*}
     \end{center}
 \end{itemize}
+
+\section*{Lecture 7: Sept 28}
+\subsection*{Review}
+\textbf{Ring:} a set with two operations $(R, +, \cdot)$ where $(R, +)$ is an abelian group, $(R, \cdot)$ follows all the group axioms except (potentially) inverses, and 
+\[a(b+c) = ab + ac\]
+
+\textbf{Ring Homomorphism:} $\phi: R_1 \to R_2$ where 
+\begin{align*}
+    \phi(a + b) &= \phi(a) + \phi(b)\\
+    \phi(ab) &= \phi(a)\phi(b)\\
+    \phi(1) &= 1
+\end{align*}
+
+\textbf{More examples:}
+\begin{itemize}
+    \item $\phi: \Z \to R_2$ is a unique homomorphism ($\phi(1) = 1$, $\phi(2) = \phi(1 + 1) = \phi(1) +\phi(1) = 2, \dots$)
+    \item Similarly, (if it exists) $\Z/n \to \R$ will be unique 
+    \item $\phi: \mathbb{C} \to \mathbb{C}$. One homomorphism is $\phi(x + iy) = x + iy$. But $\phi(x + iy) = x - iy$ is also a homomorphism
+    
+    \emph{Lemma:} $\phi(ab) = \phi(a)\phi(b)$
+
+    \emph{Proof:}
+    \begin{align*}
+        (a+bi)(c+ di) &= ac - bd + i(ad + bc)\\
+        (a- bi)(c -di) &= ac - bd - i(ad+bc_)
+    \end{align*}
+
+    \item $\Z[\sqrt 2] = \{a + b\sqrt 2 \; | \; a, b\in \; | \;Z\}, \; \phi(a + b\sqrt 2) = a - b\sqrt 2$
+\end{itemize}
+
+\subsection*{Unit group}
+\textbf{Unit:} an element of a commutative ring with an inverse. i.e.,
+\[a, b \in R: ab = 1 \]
+
+\textbf{Lemma:} $(R^\star, \cdot)$ is a group (where $R^\star$ is the set of units of $R$)
+
+\emph{Proof:}
+\begin{enumerate}
+    \item The units are closed under composition 
+    \[1 = aa' = bb' \implies 1 = aa'bb' = (ab)(a'b')\]
+    \item $R^\star \subset R$ is a ring so associativity holds
+    \item We have an identity because $1 \in R^\star$
+    \item We have inverses because $ab = 1 \implies ba=1$
+\end{enumerate}
+
+\textbf{Example:} $(\Z/N)^\star = \text{set of elements relatively prime to N}$
+
+Because $(\Z/N)^\star$ is a group, all its elements have inverses so 
+\[(\Z / N)^\star \subset (\Z/N)^\sharp\]
+(where $(\Z/N)^\sharp$ is the unit group)
+
+Now let 
+\begin{align}
+    ab = 1 \quad \in \Z/N\\
+    b = kN + 1 \quad \in \Z\\
+    ab - KN = 1 \implies \text{$ab$ is relatively prime to $N$}
+\end{align}
+So $a$ is relatively prime to $N$ so
+\[(\Z/N)^\sharp \subset (\Z/N)^\star \implies (\Z/N)^\sharp = (\Z/N)^\star\]
+
+\subsection*{Products of Rings}
+\textbf{Definition:}
+\[R_1 \times R_2 = \{(a_1, a_2) \; | \; a_1 \in R_1, \; a_2\in R_2\}\]
+with 
+\begin{align}
+    (a_1, a_2) + (b_1, b_2) &= (a_1 + b_1, a_2 + b_2)\\
+    (a_1, a_2) \cdot (b_1, b_2) &= (a_1 b_1, a_2 b_2)
+\end{align}
+
+\textbf{Lemma:} $(R_1 \times R_2^\star) = R_1^\star \times R_2^\star$
+
+If we have units in $R_1, R_2$, then 
+\[(a_1, a_2) \cdot (b_1, b_2) = (1, 1)\]
+
+\section*{Lecture 8: Oct 3}
+\subsection*{Special Cases of Rings}
+\textbf{Field:} $(R - \{0\}, \cdot) = R^*$ is an abelian group (every non-zero element has an inverse)
+
+\textbf{Integral Domain:} A commutative ring where $ab = 0 \implies a = 0 \text{ or } b = 0$
+
+\subsection*{Ideals}
+\textbf{Definition:} An \emph{ideal} $I \subset R$ is a subgroup under addition of $R$ and has the ``absorption property'' such that 
+\[\forall a \in I, r \in R: ar \in I \]
+
+\emph{Not an Ideal:} 
+\begin{itemize}
+    \item $I = \R$, $R = \R[x]$
+    \item $I = \{(n, n) \big\vert n\in \Z\}, \; R = \Z \times \Z$
+\end{itemize}
+
+\emph{Ideals:}
+\begin{itemize}
+    \item $I = 2\Z, \quad R = \Z$
+    \item $I = \{(n, 0) \big\vert n \in \Z\}, \quad R = \Z \times \Z$
+\end{itemize}
+\vspace{0.25in}
+
+\textbf{Principal Ideals:} Given $a \in R$, 
+\[aR = \{ar \; | \; r \in R\}\]
+
+\emph{Proof this is an ideal:}
+\begin{itemize}
+    \item Distribution: $ab_1 + ab_2 = a(b_1 + b_2)$
+    \item Absorption: $s \in R, \; s(ar) = a(sr)$
+    \item Inverse: $-ab = a(-b)$
+    \item Additive identity: $a0 = 0$
+\end{itemize}
+
+\emph{An ideal that is not a principal ideal:}
+\begin{itemize}
+    \item (General case) All finite sums $\sum_i a_i r_i$ with $a_1, \dots, \; a_n, r_i \in R$ 
+    
+    Observe 
+    \[r\left(\sum_i a_i r_i\right) = \sum_i a_i (rr_i)\]
+
+\end{itemize}
+
+\subsection*{Quotients}
+\textbf{Quotient ring:} a ring $\R/I$ from commutative ring $R$ and ideal $I \in R$ 
+
+The elements of $R/I$ are the cosets of $I$,
+\[a + I, \quad a \in R\]
+
+We have new group laws:
+\begin{align*}
+    (a + I) + (b + I) := (a + b) + I\\
+    (a + I)(b + I) := (ab) + I
+\end{align*}
+
+\emph{Problem:} what if $a$ and $b$ are redundant sets? When $R = \Z$, $I = 2\Z$ we have $1 + 2\Z = 13 + \Z$ (the odd integers) but $1 \neq 13$
+
+\textbf{Lemma:} If $a' +I = a+ I$ and $b' + I = b + I$ then 
+\[(a + b) + I = (a' + b') + I\]
+
+\emph{Proof:}
+\begin{align*}
+    a' = a+ i \qquad i \in I\\
+    b' = b +j \qquad j \in I\\
+    a' + b' \in (a' + b' + I)\\
+    a' + b' = a + b + (i + j) \in (a + b) + I\\
+    (a + b + I) \cap (a' + b') + I \neq \emptyset\\
+    \therefore (a + b) + I = (a' + b') + I 
+\end{align*}
+
+\textbf{Lemma:} If $a' +I = a+ I$ and $b' + I = b + I$ then  
+\[a' b' + I = ab + I\]
+
+\emph{Proof:} 
+\begin{align*}
+    a' &= a + i \\
+    b' &= b + i\\
+    a'b' &= (a + i)(b+j)\\
+    &= ab + ib + aj + ij
+\end{align*}
+But by absorption, $ib + aj + ij \in ab + I$. so the rest follows from the same proof as above. 
+
+\emph{Showing Associativity:} 
+\begin{align*}
+    (a + I + b + I) + c + I &= a + I + (b + I + c + I)\\
+    ((a + b) + c) + I = a + (b + c) + I
+\end{align*}
+
+\emph{Identity:} $(a + I) + (0 + I) = a + I$
+
 \end{document}
