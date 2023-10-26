@@ -31,8 +31,8 @@
 
 \usepackage{tikz}
 
-%\usepackage{pgfplots}
-%\pgfplotsset{width=10cm,compat=1.9}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
 
 % We will externalize the figures
 %\usepgfplotslibrary{external}
@@ -41,12 +41,15 @@
 \renewcommand{\L}[1]{\mathcal{L}\{#1\}}
 \newcommand{\ans}[1]{\boxed{\text{#1}}}
 \renewcommand{\hat}[1]{\widehat{#1}}
-\newcommand{\F}[1]{\mathcal{F}(#1)}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\qed}{\quad \blacksquare}
 \newcommand{\brak}[1]{\langle #1 \rangle}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\renewcommand{\indent}{\hspace*{0.5in}}
 
 \title{Math 1530: Abstract Algebra}
 \author{Milan Capoor}
@@ -676,9 +679,493 @@ But by absorption, $ib + aj + ij \in ab + I$. so the rest follows from the same 
 \emph{Showing Associativity:} 
 \begin{align*}
     (a + I + b + I) + c + I &= a + I + (b + I + c + I)\\
-    ((a + b) + c) + I = a + (b + c) + I
+    ((a + b) + c) + I &= a + (b + c) + I
 \end{align*}
 
 \emph{Identity:} $(a + I) + (0 + I) = a + I$
 
+\emph{Inverse:} $(a + I) + (-a + I) = (a - a) + I = 0 + I$ 
+\section*{Lecture 9: Oct 5}
+\subsection*{Review}
+\textbf{Ideal:}
+
+In a commutative ring, $I \subset R$ is an \emph{ideal} if $I$ is a subgroup under addition and $I$ has the absorber property 
+\[ar \in I, \quad \forall a\in I, r \in R\]
+
+\vspace*{0.25 in}
+
+\textbf{Quotient:}
+
+We can then construct $R/I$ which is the set of cosets of $I$ (as an abelian group)
+\[R/I = \{a + I, \quad a \in R\}\]
+However, this construction can obscure the fact that a single coset can be constructed in many ways (for example with $I = 2\Z$, both $0 + I$ and $-30 + I$ are the evens).
+
+Thus we confirm that the operations 
+\begin{align*}
+    (a + I) + (b + I) := (a + b) +I\\
+    (a + I) \cdot (b + I) := ab + I
+\end{align*}
+on $R/I$ are well-defined (because two cosets that overlap are the same)
+
+\emph{Examples:}
+\begin{itemize}
+    \item $R/I = \Z/5\Z$ has five distinct cosets:
+    \[0 + 5\Z, \; 1  +5\Z, \; 2  +5\Z, \; 3  +5\Z,\; 4 + 5\Z\]
+    so it is isomorphic to $\Z/5 = \{0, 1, 2, 3, 4\}$
+    
+    \item 
+    \[R = \R[x] = \left\{\sum_{i=0}^n a_i x^i : \quad a_i \in \R, n \in \{0, 1, 2, \dots\}\right\}\] 
+    with 
+    \[I = R(x^2 + 1) = \{p(x)(x^2 + 1), \; p(x)\in R\}\] 
+    gives the quotient ring $R/I$ with elements like
+    \[\begin{cases}
+        n + I \quad \forall n \in \mathbb{N}\\ 
+        -x^2 + I = -x^2 + (x^2 + 1) + I = 1 + I\\ 
+        (x^3 - 5) + I = (x^2 + I)(x + I) + (-5 + I) = (-1 + I)(x + I) + (-5 + I)\\
+        \vdots
+    \end{cases}\]
+    More operations lead to the very strong conclusion: \emph{every ideal can be written in the form}
+    \[\boxed{(a + I) + (bx + I) \quad a, b \in \R}\]
+
+    If we continue with this example, we can see 
+    \[(x + I)(x + I) = x^2 + I = -1 + I\]
+    so in a sense $(x + I) = \sqrt{-1}$ and in fact this does define a ring isomorphism to the complex numbers! 
+
+    \item $R = \mathbb{Q}[x]$ and $I = R(x^2- 2)$ allows us to define ``$\sqrt{2}$''via 
+    \[(x + I)(x + I) = x^2 + I = x^2 - (x^2 - 2) + I = 2 + I\]
+    This particular ring also happens to be a field.
+\end{itemize}
+\vspace*{0.25 in}
+
+\textbf{Principal Ideal:} the set of all multiples of an element in the ring 
+
+\subsection*{Homomorphisms and Ideals}
+\textbf{Ring homomorphism:} a map $\phi: R_1 \to R_2$ which respects both rings' operations:
+\begin{align*}
+    \phi(a + b) = \phi(a) + \phi(b)\\ 
+    \phi(ab) = \phi(a)\cdot \phi(b)\\ 
+    \phi(1) = 1
+\end{align*}
+
+\textbf{Kernel:} 
+\[\ker(\phi) = \{a \in R_1 \; | \; \phi(a) = 0\}\]
+
+\vspace*{0.25in}
+\textbf{Lemma:} $\ker(\phi)$ is an ideal
+
+\emph{Proof:} $\ker(\phi)$ is an abelian group since $\phi$ is also group homomorphism. Let $a \in I, r \in R$. Observe
+\begin{align*}
+    \phi(ar) &= \phi(a)\phi(r) \quad \text{ring homomorphism}\\ 
+    &= 0\cdot \phi(r) \quad a \in \ker\phi\\ 
+    &= 0 
+\end{align*}
+So $ar \in I$. Thus $\ker\phi$ is an abelian group with absorption so it is a group. 
+
+\textbf{Example:}
+
+Given $R$ and $I$ ideal, we construct 
+\[\pi: R \to R/I \implies \phi(a) = a + I\] 
+Therefore, $\ker \pi = I$
+
+This can also be represented:
+
+\begin{center}
+    \begin{tikzpicture}
+        \node (R1) at (0,5)  {$R_1$};
+        \node (R1/I) at (0, 0) {$R_1/I$};
+        \node (R2) at (5, 5) {$R_2$};
+        \draw[->] (R1) -- (R2) node[xshift=-1in, yshift=0.2in] {$\phi$};
+        \draw[->] (R1) -- (R1/I) node[yshift=1in, xshift=-0.2in] {$\pi$};
+        \draw[->, dashed] (R1/I) -- (R2) node[yshift=-1in, xshift=-0.7in] {$\alpha$};
+    \end{tikzpicture}
+\end{center}
+
+with $I = \ker \phi$.
+
+Does $\alpha$ exist? Observe:
+\begin{align*}
+    \alpha(a + I) &= \phi(a)\\ 
+    \alpha(a' + I) &= \phi(a')\\ 
+    a' &= a + i \quad i \in I = \ker \phi\\ 
+    \phi(a') &= \phi(a + i) = \phi(a) + \phi(i) = \phi(a) + 0 \phi(a)
+\end{align*}
+So the map $\alpha$ exists. 
+
+In fact, 
+\[\alpha(a + I) = 0 = \phi(a) \implies a \in \ker \phi = I\]
+Thus 
+\[\ker \phi = \{I\} = 0\]
+so $\phi$ iś injective. 
+
+\textbf{Theorem:} If $\phi: R_1 \to R_2$ is onto (surjective) $\alpha: R_1/I \to R_2$ is an $R_2$
+
+\emph{Example:} $R_1 = \R[x]$, $R_2 = \mathbb{C}$, and $\phi: R_1 \to R_2$. 
+\[\phi\left(\sum_{k=0}^n a_k x^k\right) = \sum_{k=0}^n a_k i^k = x + iy\]
+So 
+\[\ker \phi = \{0,\; x^2 + 1, \; p(x)(x^2 + 1)\} = R_1(x^2 + 1)\]
+(0 obviously, $x^2 + 1 = i^2 + 1 = 0$, and any multiple of $0$)
+
+Thus, 
+\[\R[x]/(\R[x](x^2+1)) \approxeq \mathbb{C}\]
+
+\textbf{Corollary:} In general, $\alpha: R_1/I \to \text{Im}(\phi)$ (where $\text{Im}(\phi) = \phi(R_1)$) is an isomorphism. 
+
+\section*{Lecture 10: Oct 10}
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline 
+        2 special kinds of Rings & 2 special kinds of Ideals\\ 
+        \hline
+        Integral domains & Prime ideals\\ 
+        Fields & Maximal Ideals\\
+        \hline
+    \end{tabular}
+\end{center}
+Unsurprisingly, they are related! We will take them one-by-one and then connect them. 
+
+\textbf{Integral Domain:} $R$ is an integral domain if  
+\[\forall a, b \in R: \quad ab = 0 \implies a = 0 \text{ or } b = 0\]
+
+\emph{Not every ring is an integral domain.} Consider $\Z/6$: $2 \cdot 3 = 0$
+
+\textbf{Prime Ideal:} $I \subset R$ is a prime ideal if 
+\[\forall a, b \in R: \quad ab \in I \implies a\in I \text{ or } b \in I\]
+
+\emph{Examples:}
+\begin{itemize}
+    \item $R = \Z, I = 2\Z$ is a prime ideal (product of an even and odd or even and even is even)
+    \item $R = \Z, I = 10\Z$ is NOT a prime ideal ($2 \not \in I, 5 \not \in I, 10 \in I$)
+    \item $R = \Z[i], I = 5R$ is NOT an ideal (despite 5 being prime) because $1 \pm 2i \not \in I, (1 + 2i)(1-2i) = 5 \in I$
+\end{itemize}
+
+Generally, $n\Z$ is a prime ideal precisely when $n$ is prime. 
+\vspace*{0.25in}
+
+\textbf{Theorem:} $R/I$ is an integral domain if and only if $I$ is a prime ideal. 
+
+\emph{Proof:} 
+
+We want to show that both directions are true. First consider the lemma that $I$ is prime if $R/I$ is an integral domain. 
+
+Suppose $ab \in I$ (so $ab + I = 0 + I$). We seek to show that $a = 0$ or $b = 0$. Consider the cosets $a + I$ and $b + I$:
+\[(a + I)(b + I) = ab + I = I\]
+So 
+\[(a + I)(b + I) = 0 + I\]
+Since $R/I$ is an ID, $a + I = 0 + I$ or $b + I = 0 + I$ in $R/I$. So either $a \in I$ or $b \in I$. Hence, $I$ is prime. 
+
+To see the other direction, first suppose $I$ is prime. Then $a \in I$ or $b \in I$. So 
+\[(a + I)(b + I) = 0 \implies ab + I = 0 + I\]
+Thus, $ab \in I$. Since $I$ is prime, $a \in I$ or $b \in I$. This is equivalent to 
+\[(a + I = 0 + I) \lor (b + I = 0 + I)\] 
+So $a = 0$ or $b = 0$ and $R/I$ is an integral domain. $\qed$
+
+\vspace*{0.25in}
+
+\textbf{Field:} $R$ is a field if $R^* = R - \{0\}$ (i.e. all non-zero elements have inverses)
+
+\emph{Lemma:} $R$ is a field if the only ideals in $R$ are $R, \{0\}$
+
+\emph{Proof:} Suppose $R$ is a field and $I \neq \{0\}$ is an ideal. We want to show that $I = R$. Consider, $a \in I, \; a \neq 0$. Because $R$ is a field, $b = a^{-1}$ exists. Further, 
+\[1 = ba \in I \quad (\text{by absorption})\]
+for any $r \in R$,
+\[r = r1 \in I\]
+Therefore, $I = R$. 
+
+Going the other direction, suppose $R$ is a ring whose only ideals in $R$ are $R$ and $\{0\}$. We pick any $a \in R, \; a \neq 0$ and consider $I = aR$. Since
+\[a1 = a \in I \quad I \neq \{0\}\]
+But if $I \neq \{0\}$, then $I = R$ so $1 \in I$. Then for any $r\in R$, $r1 = r \in I$ so $r = a^{-1}$ exists for any $a$. Thus, $R$ is a field.
+
+
+\textbf{Maximal Ideal:} $I \subset R$ is a maximal ideal if there are no ideals $J$ with $I \subset J \subset R$ (with these being proper subsets) 
+
+\emph{Examples:} 
+\begin{itemize}
+    \item $6\Z \subset \Z$ is not a maximal ideal because $6\Z \subset 2\Z \subset \Z$
+\end{itemize}
+
+
+\textbf{Theorem:} $R/I$ is a field if and only if $I$ is maximal.
+
+\emph{Proof:} There is a bijection between the set of ideals of $R$ that contain $I$ ($A$) and the set of ideals of $R/I$ ($B$). (See Lecture 11). Then
+\[\text{R/I field} \iff \#B = 2 \iff \#A = 2 \iff \text{I maximal}\]
+
+\emph{Alternative Proof Structure:} 
+
+Suppose $I$ is maximal. We pick an ideal $\overline J$ of $R/I$. We want to show that $\overline J = \{[0]\}$ or $\overline J = R/I$. Consider $\pi: R \to R/I$ whose kernel is just $I$. Let $J = \pi^{-1}(\overline J)$. $J$ is an ideal because it has the absorber property. Further, $I \subset J$ because $I = \ker(\pi)$. Therefore, $I \subset J \subset R$. Since $I$ is maximal, $J = I$ or $J = R$. If $J = I$, then $\overline J = \{[0]\}$. Similarly, if $J = R$, then $\overline J = \pi(R)$. So the only ideals in $R/I$ are $\{0\}$ and $R$. 
+
+To see the other direction, assume the only ideals in $R/I$ are $\{0\}$ and $R$. Try to find a subset $I \subset J \subset R$ with $J \neq I$ and $J \neq R$ but as the \color{red} ... \color{black}
+
+\textbf{Corollary:} $\Z/p\Z$ is a field for $p$ prime. 
+
+\emph{Proof:} Show $p\Z$ is a maximal ideal. 
+\[p\Z \subsetneq J \subset \Z\] 
+Since $J \neq p\Z$ there must be an element $n \in J$ relatively prime to $p$. Then, 
+\[1 = ap + bn\] 
+$ap \in J$ because $ap \in p\Z \subset J$ and $bn \in J$ by absorber. Thus $1 \in J$ so $J = (1) = \Z$. 
+
+\section*{Lecture 11: Oct 17}
+\textbf{Setup:} $R$ is a commutative ring and $I$ is an ideal of $R$. We have a quotient ring $R/I = \{a + I \; | \; a \in R\}$ and a map $\pi: R \to R/I$ defined by $\pi(a) = a + I = \{a + b \; | \; b - I\}$ 
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw[blue] (0, 0) circle (3cm) node[xshift=-2cm, yshift=3cm]{$R$};
+        \draw[blue, dashed] (0, 0) circle (2cm) node[yshift=2.3cm]{$\pi^{-1}(J)$};
+        \draw[blue] (0, 0) circle (1cm) node{$I$};
+
+        \draw[->] (3.2, 0) -- (6.8, 0);
+
+        \draw[red] (10, 0) circle (3cm) node[xshift=-10cm, yshift=10cm]{$R$};
+        \draw[red, dashed] (10, 0) circle (2cm) node[yshift=2.3cm]{$J$};
+        \draw[red] (10, 0) circle (0.1cm) node[xshift=0.5cm]{$\{0\}$};
+    \end{tikzpicture}
+\end{center}
+
+\emph{Meadow:} a ring whose only ideals are $(0)$ and $R$; synonymous with field
+
+\textbf{Lemma:} there is an isomorphism between 
+\[\overset{A}{\left\{\text{Ideals of $R$ which contain $I$}\right\}} \iff \overset{B}{\left\{\text{Ideals of $R/I$}\right\}}\]
+
+\emph{Proof:} To show there is an isomorphism between $A$ and $B$ it suffices to show that there are maps $f: A \to B$ and $g: B \to A$ where $f^{-1} = g$. 
+
+Take an element $K \in A$. Then $\pi(K)$ is a member of $B$ and we just need to check that $\pi(K)$ is an ideal of $R/I$. Conversely, if $J \in B$, we need to check $\pi^{-1}(J)$ is an ideal of $R$. 
+
+Finally, we just need to check that the functions $\pi$ and $\pi^{-1}$ are in fact inverses:
+\[\begin{cases}
+    \pi(\pi^{-1}(J)) = J\\
+    \pi^{-1}(\pi(K)) = K
+\end{cases}\]
+
+\begin{enumerate}
+    \item Show $\pi(K)$ is an ideal:
+        \begin{align*}
+            \pi(0) = 0 \implies &0 \in \pi(K) & \\
+            \pi(a) + \pi(b) = &\pi(a + b) \in \pi(K)& \qquad (\pi(a), \pi(b) \in \pi(K) \forall a, b \in K)\\
+            -\pi(a) = &\pi(-a) \in \pi(K) &\qquad (\pi \text{ is homomorphism and }  -a \in K)\\
+            r\pi(a) = \pi(c)\pi(a) = &\pi(ca) \in \pi(K) &\qquad (r \in R/I \implies r = \pi(c) \; | \; c \in R)
+        \end{align*}
+    \item Show $\pi^{-1}(J)$ is an ideal: (Basically same proof)
+    
+    \item Show $\pi(\pi^{-1}(J)) = J$:
+        
+        By definition of $\pi^{-1}$, $\pi(\pi^{-1}(J)) \subset J$. Then we want show that $J \subset \pi(\pi^{-1}(J))$. Pick $a \in J$. Since $\pi$ is onto, $a = \pi(r), \; r \in R$. Because $\pi(r) \in J$, $r \in \pi^{-1}(J)$. So $a = \pi(r) \in \pi(\pi^{-1}(J))$
+
+    \item Show $\pi^{-1}(\pi(K)) = K$: 
+    
+        First we show $K \subset \pi^{-1}(\pi(K))$. Pick $a \in K$. Then $\pi(a) \in \pi(K) \implies a \in \pi^{-1}(\pi(k))$ because $a$ has the property that it is mapped into $\pi(K)$ by $\pi$.
+
+        To show $\pi^{-1}(\pi(K)) \subset K$, choose $a \in \pi^{-1}(\pi(K))$. We know $\pi(a) \in \pi(K)$ so $\pi(a) = \pi(b) \; | \; b \in K$ so $\pi(a) - \pi(b) = \pi(a - b) = 0 \implies a - b \in I \implies a -b \in K$ (because $I \subset K$). So $a = (a - b) + b \in K$. 
+\end{enumerate}
+
+\chapter*{Fields}
+\section*{Lecture 12: Oct 19}
+\subsection*{Review}
+There is a bijective map between the set of ideals of $R$ that contain $I$ and the ideals of $R/I$ given a homomorphism $\pi: R \to R/I$
+
+\textbf{Theorems:}
+\begin{itemize}
+    \item $R/I$ is an integral domain if and only if $I$ is a prime ideal
+    \item $R/I$ is a field if and only if $I$ is maximal 
+\end{itemize}
+
+\subsection*{Defining Fields} 
+A field is:
+\begin{itemize}
+    \item A ring where every non-zero element has an inverse 
+    \item A ring whose only ideals are $R$ and $\{0\}$
+    \item The quotient $R/I$ if and only if $I$ is maximal
+    \item A ring with division and commutativity
+\end{itemize}
+
+\subsection*{Example of Fields:}
+\begin{itemize}
+    \item $\mathbb{Q}$ - the rational numbers 
+    \item $\R$ - the real numbers 
+    \item $\mathbb{C}$ - complex numbers ($x + yi \; | \; x, y \in \R$ i.e., the set of linear combinations of $x$ and $i$)
+    \item $\mathbb{Q}[\sqrt 2] = \{a + b\sqrt 2 \; | \; a,b\in \mathbb{Q}\}$ (\emph{Proof:} $(a + b\sqrt 2)(a - b\sqrt 2) = a - 2b^2$)
+    \item $\mathbb{Q}[\sqrt D]$ (if $D$ is not a perfect square)
+    \item $\Z/p\Z$ if $P$ is prime (because $p\Z$ is maximal)
+    \item $F =\{a + b \diamond \; | \; a, b \in \Z/3\} = \Z/3[x]/(x^2 -2)\Z/3[x]$ where $\diamond^2 = 2$ in $\Z/3$ (this set has $9$ elements because $a$ and $b$ each have three values)
+\end{itemize}
+
+\textbf{Interlude:} Constructing the rational numbers 
+
+\[\mathbb{Q} = a \star b , b \neq 0, a_1 \star b_1 \sim a_2 \star b_2 \iff a_1b_2 = a_2b_1\]
+with multiplication defined on the equivalence class of quotients 
+\[[a_1 \star b_1] [a_2 \star b_2] = [a_1a_2 \star b_1 b_2]\]
+and addition defined  
+\[[a_1 \star b_1] + [a_2 \star b_2] = [a_1b_2 + a_2b_1 \star b_1 b_2]\]
+
+Note that $\star$ is an operation that functions exactly like division but is meant to emphasize that it carries no other intrinsic properties except these operations on equivalence classes. 
+
+\subsection*{Vector spaces}
+\textbf{Definition:} a set $V$ is a \emph{vector space} over a field $\mathbb{F}$ if 
+\begin{enumerate}
+    \item $V$ is an abelian group (under addition)
+    \item $(a+ b) \vec v = a\vec v + b\vec v \quad \forall a,b \in \mathbb{F}, \vec v \in V$
+    \item $(ab) \vec v = a(b\vec v) \quad \forall a, b \in \mathbb{F}, \vec v\in V$
+    \item $a(\vec w + \vec w) = a\vec v + a \vec w \quad \forall a \in \mathbb{F}, \vec v, \vec w \in V$
+\end{enumerate}
+
+\textbf{Examples:} 
+\begin{itemize}
+    \item $\R^n$
+    \item $\mathbb{C}^n$
+    \item $\mathbb{Q}^n$
+    \item (Extension Field) Given fields $\mathbb{F} \subset K$, $K$ (the extension field) is a vector space over $\mathbb{F}$ (the subfield)
+    \item $\mathbb{C}$ is a vector space over $\R$ 
+    \item $\R$ is a vector space over $\mathbb{Q}$
+    \item $\Q[\sqrt 2]$  is a vector space over $\Q$
+    \item $\Z/\Z[\diamond]$ is a vector space over $\Z/3\Z$
+\end{itemize}
+
+\textbf{Linear combinations of $v_1, v_2, \dots, \; v_n \in V$}:
+\[sum_{i=1}^n a_i v_i \quad a_i \in \mathbb{F}\]
+
+\textbf{Spanning set:} $\{v_i\}$ is a spanning set if every $v \in V$ is a linear combo of $\{v_i\}$
+
+\textbf{Independent set:} $\{v_i\}$ is an independent set if 
+\[\sum_{i=1}^n a_i v_i = 0 \implies a_1, \dots, \; a_n = 0\]
+
+\textbf{Basis:} $\{v_i\}$ is a basis if it is an independent spanning set
+
+\textbf{Theorem:} If $V$ has a finite basis, then all bases have the same number of elements (which we call $\dim(V)$)
+
+\textbf{Axiom of Choice:} postulate that every vector space has a basis 
+
+
+\section*{Lecture 13: Oct 24} 
+    \textbf{Notation:} $F[x]$ is ring set of polynomials with coefficients in $F$
+
+    \subsection*{Long division of polynomials}
+    \textbf{Theorem: (Division Algorithm)} 
+
+        Suppose you have two polynomials 
+        \begin{gather*}
+            p(x) = a_m x^m + \dots + a_1, \quad a_i \in F, a_m \neq 0\\
+            q(x) = b_n x^n + \dots + b_1, \quad b_i \in F, b_n \neq 0
+        \end{gather*}
+        (We say $\deg(p) = m$ and $\deg(q) = n$)
+
+        Then $q(x) = a(x)p(x) + r(x)$ where $\deg(r) < \deg(p)$
+
+    \emph{Proof:} Induction on $n - m$
+
+        Base case: $n - m < 0$ so $q = 0p + r$ 
+
+        Generally,
+        \[q_* = q - \frac{b_n}{a_m} x^{n - m} p(x) \qquad \deg(q_*) = n_* < n\]
+
+        By induction,
+        \[q_* = a_* p + r \qquad \deg(r) < \deg(p)\]
+        so 
+        \[q - \frac{b_n}{a_m} x^{n - m} p(x) = a_* p + r \implies q = (\underbrace{a_* + \frac{b_n}{a_m} x^{n - m}}_a)p + r \qed\]
+
+    \subsection*{Theorems of Polynomial Rings}
+    \textbf{Theorem:} All ideals in $F[x]$ are principal
+
+        \emph{Proof:} Let $I$ be an ideal. Consider $p(x) \in I$, the smallest degree non-zero polynomial in $I$. Let $q \neq 0 \in I$. By the division algorithm,
+            \[q = ap + r \quad \deg r < \deg p\]
+        Since $r = q - ap$, and $I$ is ideal, $r \in I$. Therefore, $\deg r = 0$ (or else it would be smaller than $p$). Thus, $q = ap$ which is a contradiction. 
+
+    \textbf{Definition:} $p(x) \in F[x]$ is \emph{irreducible} if $p(x) = a(x)b(x) \implies \deg(a) = 0 \lor \deg(b) = 0$
+
+    \textbf{Theorem:} if $p(x) \in F[x]$ is irreducible, then $I = p(x)F[x]$ is maximal
+
+        \emph{Proof:} Let $J = b(x)F[x]$ be an ideal such that $I \subseteq J \subseteq F[x]$. We know $p \in J$ because $p \in I$. So 
+        \[p(x) = a(x)b(x)\]
+
+        Case 1: $\deg(a) = 0$ so $p = b$ up to constants and $I = J$
+
+        Case 2: $\deg(b) = 0$ so $1 \in J \implies J = F[x]$ (because inverse of $b \in F[x]$)
+
+    \textbf{Theorem:} $F[x]/p(x)F[x]$ is a field. 
+
+        \emph{Proof:} Given $c \in F$, consider the coset $[c] = c + p(x)q(x)$. We define a ring homomorphism $\phi: F \to F/p(x)F[x], c \mapsto [c]$. 
+        
+        Suppose $c \in \ker\phi$. Then 
+        \[[c] = [0] \implies c \in p(x)F[x] \implies c = a(x)p(x) \implies a(x) = c \implies c = 0\]
+        So $\ker \phi = 0$. Then by the isomorphism theorem, $F$ is isomorphic to $\phi(F)$ which means that $\phi(F)$ is a field.
+
+    \textbf{Theorem:} $F[x]/p(x)F[x]$ contains a root of $p(x)$
+
+        \emph{Proof:} Consider $[x] = x + p(x) F[x]$. Since $\phi(F)$ contains a copy of $F$ (mapped to its cosets), we can write 
+        \[p([x]) = [p(x)] = [0]\]
+        by using the formula for coset composition. 
+
+\section*{Lecture 14: Oct 26}
+    \subsection*{Review}
+        \textbf{Polynomial division:} we can write any polynomial $q = ap + r$ where $\deg r < \deg p$
+
+        \textbf{Theorems:}
+        \begin{itemize}
+            \item if $F$ is a field, all ideals in $F[x]$ are principal 
+            \item If $p \in F[x]$ is irreducible, then $I = p(x)F[x]$ is maximal 
+            \item $F[x]/p(x)F[x]$ is a field (look at the map $\phi: F \to F[x]/p(x)F[x],\quad a\mapsto [a] = a + p(x)F[x]$)
+            \item $F[x]/p(x)F[x]$ contains a root of $p(x)$
+            
+            \indent \emph{Proof:}
+            \begin{gather*}
+                p(x) = a_0 + \dots + a_nx^n \in F[x]\\
+                p(x) = [a_0] + \dots + [a_n] x^2 \in K[x]\\
+                p([x]) = [a_0] + \dots + [a_n][x]^2 = [a_0 + a_1x + \dots a_nx^b] = [p(x)] = [0] \in K
+            \end{gather*}
+        \end{itemize}
+
+        \textbf{An Example:} $F= \R, \quad p(x) = x^2 + 1, \quad K = R[x]/(x^2 + 1)R[x]$
+            We know $x^2 + 1$ is irreducible because $\sqrt{-1} \not \in \R$. We then consider the map $r \to [r]$ so 
+            \begin{gather}
+                [x]^2 + [1] = 0\\
+                [x]^2 = [-1]
+            \end{gather}
+            We define $i := [x]$ so $i^2 = -1$. Further, 
+            \[[x] + i[y] \in K\]
+            for amy element in $k$ because 
+            \[[x^n] = [x^2][x^{n-2}] = [-x^{n-2}]\]
+            so we can factor down any polynomial to lowest degree.
+
+    \subsection*{Bases}
+        \textbf{Basis:} a linearly independent spanning set
+        
+        \textbf{Example:} $\{1, i\}$ is a basis of $\C$ over $\R$ 
+
+        \textbf{Example:} Is $S = \{[1], [x], \dots,\; [x^{n-1}]\}$ a basis? 
+        \indent \emph{Proof:} It is a spanning set because 
+        \[[x^n] = -\frac{[a_{n-1}] [x^{n-1}]}{[a_n]} \cdot -\frac{[a_0]}{[a_n]}\]
+
+        Suppose it is not linearly independent. then $\exists[b_0], \dots,\; [b_{n-1}]$ such that 
+        \[[b_0][x] + \dots + [b_{n-1}][x^{n-1}] = [0]\]
+        Using the formula, 
+        \[[b_0 + \dots + b_{n-1} x^{n-1}] = [0] = [p(x)]\]
+        Since the polynomial is in the ideal, it is a multiple of $p(x)$. But $p$ has degree $n$ and $\deg([b_0 + \dots + b_{n-1} x^{n-1}]) = n -1$. But since $n - 1 < n$, it cannot be a multiple of $p$ so contradiction. 
+
+    \subsection*{Dimensionality}
+        Let $\subset K$. Then we denote 
+        \[[K : F] = \dim_F K = \text{the dimension of K as a vector space over F}\]
+
+        \textbf{Example:} $[\C : \R] = 2$ (because the basis is $\{1, i\}$)
+
+        \textbf{Example:} $[F[x]/ p(x)F[x] : F] = \deg(p)$
+
+        \textbf{A Homework Problem:} $F = \Q, \; p(x) = x^3 -2$ 
+            \[[F[x]/F[x](x^3-2) : \Q] = 3\] 
+            (Here $[x] = \sqrt[3]{2}$) and the basis is 
+            \[\{[1], [x], [x^2]\} = \{1, \sqrt[3]{2}, \sqrt[3]{4}\}\]
+
+        \textbf{Theorem:} $F \subset K \subset L$, 
+        \[[L : F] = [L : K][K : F]\]
+            
+            \emph{Proof:} Let $m = [K : F], \quad n = [L : K]$. Let $v_1, \dots,\; v_m$ be an $F$-basis for $K$. Let $w_1, \dots,\; w_n$ be a $K$-basis for $L$. We consider the set $\{v_i w_j\}$ and seek to prove that it is a spanning set and linearly independent. 
+
+            \indent \emph{Lemma:} $\{v_iw_j\}$ is a spanning set. 
+
+            \indent \emph{Proof:} Pick an element $l \in L$. It can be written in the form 
+            \[l = \sum_i \sum_j k_{ij} v_i w_j\]
+
+            \indent \emph{Lemma:} $\{v_iw_j\}$ is independent 
+
+            \indent \emph{Proof:} Suppose $\sum_{i, j} f_{ij} v_i w_j = 0$. 
+            \[\left(\sum_{i} f_{i1} v_i\right)w_1 + \dots +\left(\sum_{i} f_{in} v_i\right)w_n = 0\]
+            But the $v_i$ are a basis for $K$ so 
+            \[\sum_{i,j} f_{ij} v_i = 0 \implies f_{ij} = 0 \qed\]
 \end{document}
+
