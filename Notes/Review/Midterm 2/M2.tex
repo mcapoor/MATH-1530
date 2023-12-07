@@ -1,0 +1,213 @@
+\documentclass[11pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1cm}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{enumitem}
+\usepackage{multicol} 
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\begin{document}
+\begin{multicols}{2}
+\section*{Class notes}
+
+    \subsection*{Fields}
+        \textbf{Theorem:} $R/I$ integral domain $\iff$ $I$ prime ideal. $R/I$ field $\iff$ $I$ maximal ideal.
+
+        Field:
+        \begin{itemize}
+            \item A ring where every nonzero element has a multiplicative inverse.
+            \item A ring whose only ideals are $R$ and $\{0\}$
+            \item A ring with division and commutativity 
+        \end{itemize}
+
+        Common Fields: $\Q$, $\R$, $\C$, $\Z/p\Z$ where $p$ is prime, $Q[\sqrt 2]$, $\Q[\sqrt D]$ if $D$ is not a perfect square 
+
+        A set $V$ is a vector space over a field $F$ if it satisfies the following axioms:
+        \begin{enumerate}
+            \item $V$ is abelian group under addition 
+            \item $(a + b)\vec v = a\vec v + b\vec v, \quad \forall a, b \in F, \vec v \in V$
+            \item $a(\vec v + \vec w) = a\vec v + a\vec w, \quad \forall a \in F, \vec v, \vec w \in V$
+            \item $(ab)\vec v = a(b\vec v), \quad \forall a, b \in F, \vec v \in V$
+        \end{enumerate}
+
+        Basis: $\{v_i\}$ is an independent spanning set 
+        \begin{itemize}
+            \item Independent: $\sum_{i=1}^n a_i\vec v_i = 0 \implies a_i = 0, \forall i$
+            \item Spanning: If every $v \in V$ is a linear combo of $\{v_i\}$
+        \end{itemize}
+        \emph{Example:} $\{1, i\}$ is a basis for $\C$ over $\R$ and $[\C: \R] = 2$
+
+        \textbf{Theorem:} If $V$ has a finite basis, all bases have the same number of elements ($\dim V$)
+
+        \textbf{Theorem:} All ideals in $F[x]$ are principal 
+
+        \textbf{Irreducible:} $p(x) \in F[x]$ is irreducible if $p(x) = a(x)b(x) \implies a(x)$ or $b(x)$ is a constant. 
+
+        \textbf{Theorem:} If $p(x)\in F[x]$ is irreducible, $I = p(x)F[x]$ is maximal 
+
+        \textbf{Theorem:} $F[x]/p(x)F[x]$ is a field 
+
+        \textbf{Theorem:} $F[x]/p(x)F[x]$ contains a root of $p(x)$
+
+        \textbf{Theorem:} If $F \subset K \subset L$, then 
+        \[[L:F]= [L:K][K:F]\]
+
+    \subsection*{Groups}
+        \textbf{Normal:} $H \trianglelefteq G$ if 
+        \[H = aHa^{-1} \quad \iff \quad a^{-1}Ha = H \quad \iff \quad a^{-1}Ha \subset H\]
+        \begin{itemize}
+            \item All subgroups of an abelian group are normal 
+            \item Any group is a normal subgroup of itself
+        \end{itemize}
+
+        \textbf{Quotient group:} $G/N = \{gN: g \in G\}$ and 
+        \[aN \cdot bN = ab\cdot N\]
+
+        \textbf{Cayley's Theorem:} Every group is isomorphic to a subgroup of a symmetric/permutation group
+
+        \textbf{Lemma:} two orbits are identical or disjoint 
+
+        \textbf{Abelian Cauchy:} If $G$ abelian and $p \mid G$, $G$ has an element of order $p$ 
+
+        \textbf{Cauchy Theorem:} Every finite group with $p \mid \abs{G}$ has an element of order $p$
+
+        \textbf{Proposition:} $\abs{H} = p^n$ has a subgroup of order $p^m$ for any $m \leq n$
+
+\section*{Textbook Facts}
+    \subsection*{Fields}
+        \textbf{Proposition:} If $F, K$ fields, $\phi: F\to K$ is a ring homomorphism, then $\phi$ is injective.
+
+        \textbf{Extension field:} $F \subset K \subset L$ $K = F(a_1, \dots, a_n)$ is the smallest subfield of $L$ containing $a_1, \dots, a_n$. 
+
+        \textbf{Theorem:} For $L/K/F$,
+        \[[L:F] = [L:K][K:F]\]
+
+        Polynomial degree: $\deg(f_1 f_2) = \deg(f_1) + \deg(f_2)$
+
+        \textbf{Characteristic of a Ring:} the integer generating the kernel of $\phi: \Z \to R$. If $\phi$ not injective, the smallest $m$ such that $m\alpha = 0$ for all $\alpha \in R$. 
+
+        \textbf{Proposition:} the order of a finite field of Characteristic $p$ is some power of $p$.
+
+        \textbf{Theorem:} $p$ prime and $d \geq 1$, $\mathbb{F}_p[x]$ contains an irreducible polynomial of degree $d$ 
+
+        \textbf{Theorem:} There exists a field $F$ containing exactly $p^d$ elements ($d\geq 1$) and any two fields containing $p^d$ elements are isomorphic.
+
+    \subsection*{Groups}
+        If $G$ abelian, every subgroup is normal 
+
+        Every group has at least two normal subgroups: $\{e\}$ and $G$ 
+
+        \emph{Simple group:} a group whose only normal subgroups are $\{e\}$ and $G$
+
+        \textbf{Proposition:} any group of prime order is simple
+
+        \textbf{Proposition:} $\phi: G_1 \to G_2$ is a group homomorphism, $\ker \phi \trianglelefteq G_1$  
+
+        \textbf{Normality:}
+        \begin{enumerate}
+            \item $H \trianglelefteq G$ if $gHg^{-1} \subseteq H, \forall g \in G$
+            \item $\forall g\in G, \{gHg^{-1}\} \trianglelefteq G$
+            \item there is an isomorphism $H \to g^{-1}Hg$
+        \end{enumerate}
+
+        \textbf{Isomorphism theorem:} If $\phi: G_1 \to G_2$ is a group homomorphism with $\ker \phi = N$, then $G_1/\ker{\phi} \cong \text{Im}(\phi)$
+
+        \emph{Corrolary:}
+        \[\frac{\#G}{\#\ker(\phi)} = \#\text{Im}(\phi)\]
+
+        \textbf{Group action:} $G$ group, $X$ set, $\phi: G \times X \to X$ such that 
+        \begin{enumerate}
+            \item \emph{Identity:} $e \cdot x = x \quad \forall x \in X$
+            \item \emph{Associativity:} $(g_1g_2) \cdot x = g_1\cdot (g_2 \cdot x)$
+        \end{enumerate}
+
+        \textbf{Remark:} Defining an action $G$ on $X$ is equivalent to a homomorphism $\alpha: G \to S_X$ where $S_X$ is the set of permutations on $X$ and $\alpha(g): X \to X$ with $g\cdot x = \alpha(g)(x)$
+
+        \textbf{Orbit:} $Gx = \{g\cdot x: g \in G\}$
+
+        \textbf{Stabilizer:} $G_x = \{g \in G: g\cdot x = x\}$
+
+        \textbf{Proposition:}
+        \[\abs{Gx} = \frac{\abs{G}}{\abs{G_x}}\]
+
+        \emph{Transitive action:} $Gx = X \quad \forall x \in X$
+
+        \textbf{Orbit Stabilizer Counting TheoremL} $G, X$ finite $Gx_1, \dots, \; Gx_k$ distinct orbits, 
+        \[\abs{X} = \sum_{i=1}^l \abs{Gx_i} = \sum_{i=1}^K \frac{\abs{G}}{\abs{G_{x_i}}}\]
+
+        \textbf{Theorem:} $\abs{G} = p^n$, then $Z(G) \neq \{e\}$
+
+        \emph{Conjugation action:} $g\cdot x = gxg^{-1} \in X$ 
+        \[G_x = \{g\in G: gxg^{-1} = x\} = \{g \in G: gx = xg\}\]
+
+        \textbf{Corollary:} $\abs{G} = p^2$, $G$ is abelian 
+
+        \textbf{Centralizer:} $Z_G(H) = \{g \in G: gh = hg \quad \forall h \in H\}$
+
+        \textbf{Normalizer:} $N_G(H) = \{g\in G: g^{-1}Hg = H\}$
+
+        Sylow's theorems:
+        \begin{itemize}
+            \item \emph{p-Sylow subgroup:} $p^n \mid G$, $H \subseteq G$ with $\abs{H} = p^n$
+            \item If $p^r \mid \abs{G}$, $G$ has a subgroup of order $p^r$
+            \item $\abs{G} = \prod_i \abs{H_{p_i}}$ with $H_{p_i}$ p-Sylow subgroups of distinct $p_i$
+            \item For any two distinct p-Sylow subgroups, $P_1 \cap P_2 = \{e\}$
+        \end{itemize}
+        \begin{enumerate}
+            \item $\abs{G} = p^n\cdot k$, $G$ has at least one $p$-Sylow subgroup
+            \item All $p$-Sylow subgroups are conjugate: $\exists g \in G$, $H_2 = gH_1g^{-1}$
+            \item $n$ is the number of distinct p-Sylow subgroups. $p \mid \abs{G}$, $p \mid \abs{k}$, $n \equiv 1 \mod p$
+        \end{enumerate}
+
+        \textbf{Lemma:} $N_G(H) = \{g\in G: g^{-1}Hg = H\}$. If $H \subseteq G$, $H$ has exactly $\#G/\$N_G(H)$ conjugates in $G$ 
+
+        \textbf{Lemma:} $A, B \subset D$, $AB = \{ab: a \in A, b \in B\}$, 
+        \[\abs{AB} = \frac{\abs{A}\abs{B}}{\abs{A \cap B}}\]
+
+        \textbf{Lemma:} 
+        \[\abs{HaK} = \frac{\abs{H}\abs{K}}{\abs{aHa^{-1} \cap K}}\]
+
+\end{multicols}
+\end{document}

@@ -1,0 +1,278 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\langle #1 \rangle}
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+
+\begin{document}
+\section*{Groups}
+\textbf{Group:} a set with a composition law satisfying
+\begin{align*}
+    g_1 g_2 \in G \quad &\forall g_1, g_2 \in G \qquad &(\text{closure})\\
+    eg = ge = g \quad &\forall g\in G \qquad &(\text{identity})\\
+    gh = hg = e \quad &\exists h \forall g \in G \qquad &(\text{inverse})\\ 
+    g_1 (g_2g_3) = (g_1g_2)g_3 \quad &\forall g_1, g_2, g_2 \in G \qquad &(\text{associativity})
+\end{align*}
+
+\emph{Properties:}
+\begin{itemize}
+    \item G has exactly one identity
+    \item Each element has exactly one inverse 
+    \item $(gh)^{-1} = h^{-1} g^{-1}$
+    \item $(g^{-1})^{-1} = g$
+    \item If $g_1g_2 = g_2g_1 \quad \forall g_1, g_2 \in G$ then $G$ is \emph{abelian}
+    \item \emph{Cancellation:} If $gh = gk$ then $h = k$
+\end{itemize}
+
+\textbf{Order:} 
+\begin{enumerate}
+    \item the cardinality of the set of elements of an infinite group 
+    \item the number of elements in a finite group 
+    \item the smallest integer $n \geq 1$ such that $g^n = e$ with $g \in G$
+    \item the order of a group is also the order of its generator
+\end{enumerate}
+
+\textbf{Common groups:}
+\begin{itemize}
+    \item Cyclic group: $\mathcal{C}_n = \{e, g, g^2, \dots,\, g^{n-1}\} \cong \brak{g}$ using $g^{i} \cdot g^j = g^{i + j\mod n}$
+    \item Symmetric group: $\mathcal{S}_n$ the set of all permutations of $\{1, 2, \dots,\, n\}$
+    \item General Linear Group $GL_2(\R)$: the group of $2\times 2$ matrices with $\det A \neq 0$
+    \item Dihedral groups $\mathcal{D}_n$: the group of rotations and reflections of an $n$-gon 
+    \item Quaternion group $\mathcal Q = \{\pm 1, \pm i, \pm j, \pm k\}$
+\end{itemize}
+
+\textbf{Group homomorphism:}
+\[\phi: G \to G' \;\text{ such that }\; \phi(g_1 g_2) = \phi(g_1)\phi(g_2) \quad \forall g_1, g_2 \in G \]
+
+\emph{Bijection:} a surjective and injective mapping 
+\begin{enumerate}
+    \item Surjective (onto) - every element is the image of an element in the domain, $\forall y\in Y, \exists x \in X: f(x) = y$
+    \item Injective (one-to-one) - $f(x_1) = f(x_2) \implies x_1 = x_2$
+\end{enumerate}
+
+\emph{Isomorphism:} a bijective homomorphism 
+\begin{itemize}
+    \item $\mathcal C_2 \cong \mathcal S_2$
+    \item $\mathcal D_3 \cong \mathcal S_3$
+    \item Every group of prime order is isomorphic to $\mathcal C_p$
+\end{itemize}
+Isomorphic group share structural properties (both are finite, both are abelian, both share elements of the same order if one of them does)
+
+To prove to groups are not isomorphic, show they have a structural difference.
+
+\textbf{Subgroup:} a subset $H \subset G$ that is closed, has the identity element, and has an inverse for every element (it automatically satisfies the associative law)
+
+To show $H$ is a subgroup, prove that $H \neq \emptyset$ and $h_1h_2^{-1} \in H \forall h_1, h_2 \in H$
+
+\textbf{Kernel:} the kernel of a group homomorphism $\phi: G\to G'$ is 
+\[\ker \phi = \{g \in G: \phi(g) = e'\}\]
+\begin{itemize}
+    \item $\ker(\phi)$ is a subgroup of $G$
+    \item $\phi$ is injective if and only if $\ker(\phi) = \{e\}$
+\end{itemize}
+
+\textbf{Cosets:} For $H \subset G$, the coset for each $g \in G$ is $gH = \{gh: h\in H\}$
+\begin{itemize}
+    \item Every element of $G$ is in some coset of $H$
+    \item Every coset of $H$ has the same number of elements
+    \item Two cosets of $H$ are either equal or disjoint  
+\end{itemize}
+
+\textbf{Lagrange's Theorem:} the order of a subgroup divides the order of a group
+\[\#G = (G:H)\#H\]
+where $(G:H)$, the \emph{index of H in G}, is the number of distinct cosets of $H$. 
+
+\emph{Corollary:} the order of an element $g \in G$ divides the order of the group 
+
+\textbf{Product Group:} $G_1 \times G_2 = \{(a, b) : a\in G_1 \text{ and } b \in G_2\}$ with multiplication defined by 
+\[(a, b) \cdot (a', b') = (a\cdot a', b\cdot b')\]
+
+\textbf{Unproven but useful assertions of Group Theory:}
+\begin{itemize}
+    \item For $p$ prime and $G$ of order $p^2$, $G$ is abelian 
+    \item Sylow's theorem: for $G$ finite, $p$ prime, with $p^n \bigg\vert \#G\; (n \geq 1)$, $G$ has a subgroup of order $p^n$ (but not the converse!)
+    \item Structure theorem for Finite Abelian Groups: with $G$ finite abelian, there are prime powers (integers) so that 
+    \[G \cong (\Z/m_1\Z) \times (\Z/m_2\Z) \times \dots \times (\Z/m_r\Z)\]
+\end{itemize}
+
+\section*{Rings}
+\textbf{Ring:} set $R$ with two operations such that 
+\begin{enumerate}
+    \item $(R, +)$ is an abelian group with identity $0$
+    \item $(R, \cdot)$ is closed, has associativity, and has an identity ($1$)
+    \item $a (bc) = (ab)c \quad \forall a, b, c \in R$
+\end{enumerate}
+
+\emph{Properties:}
+\begin{itemize}
+    \item $0a = 0\quad \forall a \in R$
+    \item $(-a)(-b) = ab \quad \forall a, b \in R$
+\end{itemize}
+
+\textbf{Ring homomorphism:} $\phi: R \to R'$ satisfying 
+\begin{enumerate}
+    \item $\phi(1) = 1$\\
+    \item $\phi(a + b) = \phi(a) + \phi(b)$\\ 
+    \item $\phi(ab) = \phi(a)\phi(b)$
+\end{enumerate}
+
+\textbf{Kernel:} $\ker(\phi) = \{a \in R: \phi(a) = 0\}$
+
+\textbf{Important rings:}
+\begin{itemize}
+    \item $\Z \subset \mathbb Q \subset \R \subset \mathbb C$ 
+    \item $\Z/m\Z$ (not a subring of $\mathbb C$ but with homomorphism $\phi(a) = a \mod m, \phi: \Z \to \Z/m\Z$)
+    \item Gaussian integers $\Z[i] = \{a + bi: a, b\in \Z\}$
+    \item Polynomial Rings $R[x] = \sum a_k x^k$
+    \item Quaternions $\mathbb H = \{a + bi + cj + dk: a, b, c, d \in \R\}$ (non-commutative)
+    \item $M_2(\R)$ (two-by-two matrices with real entries)
+    \item $\Z/p\Z$ with prime $p$ is a field 
+\end{itemize}
+
+\textbf{Important Homomorphisms:}
+\begin{itemize}
+    \item Evaluation map $E_c: R[x] \to R$ with $E_c(f) = f(c)$ (kernel is polynomials with factor $x - c$)
+    \item For every ring, there is a \emph{unique} homomorphism $\phi: \Z \to R$
+\end{itemize}
+
+\textbf{Field:} a commutative ring with every non-zero element having an inverse 
+
+
+\textbf{Integral Domain:} a ring where $ab = 0$ implies $a = 0$ or $b = 0$
+
+\emph{Examples:} $\R$, $\Z$, $\Z[i]$
+
+\emph{Every field is an integral domain but not every integral domain is a field. }
+
+\emph{Cancellation Property:} $ab = ac \iff b=c \text{ or } a =0$. A commutative ring has this property if and only if it is an integral domain.
+
+\textbf{Unit Groups:} the subset $R^* \subset R$ where 
+\[R^* = \{a \in R: \exists b \in R, ab = 1\}\] 
+forms a group under multiplication.
+
+\emph{Examples:}
+\begin{itemize}
+    \item $\Z^* = \{\pm 1\}$
+    \item $\Z[i]^* = \{\pm 1, \pm i\}$
+    \item $\R[x]^* = \R^*$
+    \item $(Z/m\Z)^* = \{a \mod m: \gcd(a, m) = 1\}$
+    \item $(\Z/p\Z)^* = \{1, \dots,\, p - 1\}$ (and $\Z/p\Z$ is a field)
+\end{itemize}
+
+A ring is a field if and only if $R^* = R - \{0\}$
+
+\textbf{Product of Unit Groups:} With $R_1, \dots,\, R_n$ commutative,
+\[(R_1 \times \dots \times R_n)^* \cong R_1^* \times \dots \times R_n^*\]
+
+\textbf{Ideals:} a non-empty subset $I \subseteq R$ with 
+\begin{enumerate}
+    \item $a, b \in I \implies a + b \in I$
+    \item $a \in I, r \in R \implies ra \in I$
+\end{enumerate}
+
+\textbf{Principal ideal:} $(c) = cR = \{rc : r\in R\}$
+
+Every ring has at least two ideals: $(0) = 0R = \{0\}$ and $(1) = 1R = R$
+
+\textbf{Coset:} $a \in R$, 
+\[a + I = \{a + c : c \in I\}\]
+
+Note that $a \in a + I$ because $0 \in I$ so $a + 0 \in I$. 
+
+If $b - a \in I$ then $b \equiv a \mod I$
+
+\textbf{Quotient:} $R/I$ is the collection of distinct cosets of $I$ and is governed by the group operations 
+\begin{align*}
+    (a + I) + (b + I) &= (a+b) + I\\ 
+    (a + I)(b + I) &= ab + I
+\end{align*}
+
+\emph{Properties:}
+\begin{enumerate}
+    \item $a' + I = a + I \iff a' - a \in I$
+    \item Addition and multiplication of cosets is well defined 
+    \item $R/I$ is a commutative ring
+\end{enumerate}
+
+\textbf{Isomorphism Theorem:} 
+\begin{enumerate}
+    \item With $I \subset R$, $\phi: R \to R/I$, $\ker(\phi) = I$
+    \item With $\phi: R \to R'$, $\ker(\phi) = \{a\in R: \phi(a) = 0\}$ is an ideal of R, $\phi$ is injective iff $\ker(\phi) = (0) = I$
+\end{enumerate}
+
+\section*{Homework Results}
+
+\textbf{Generator:} If $G$ is a finite cyclic group of order $n$, and $g$ is a generator of $G$. $g^k$ is a generator of $G$ if and only if $\gcd(k, n) = 1$
+
+\emph{Lemma:} $g\in G$ with $o(g) = n, k \geq 1$. $o(g^k) = n/\gcd(n, k)$
+
+\textbf{Homomorphism:} If $\phi$ is a bijective homomorphism, $\phi^{-1}$ is a homomorphism 
+
+\textbf{Center:} $Z(G) = \{g \in G: gh = hg \quad \forall h \in G\}$
+\begin{itemize}
+    \item $Z(G)$ is the set of elements in $G$ that commute with every other element
+    \item It is a subgroup 
+    \item $Z(G) = G$ when $G$ is abelian 
+    \item The center of $S_n$ is trivial $n \geq 3$
+    \item The center of $D_n$ is trivial for odd $n \geq 3$ and consists of identity and 180 degree rotations for even $n \geq 3$
+    \item The center of $Q$ is $\{1, -1\}$
+\end{itemize}
+
+\textbf{Subgroups:} If $G$ is a finite group whose only subgroups are $\{e\}$ and $G$, then $G = \{e\}$ or it is cyclic of prime order. 
+
+\textbf{Gaussian integers:} $\Z[\sqrt d] = \{a + b\sqrt D: a, b \in \Z\}$ If $D \geq 0$ then it is a subring of $\R$. Otherwise it is a subring of $\mathbb C$
+
+\textbf{Fermat's Little Theorem:} with $p$ prime, $a \in \Z$ and $p \nmid a$
+\[a^{p-1} \equiv 1 \mod p\]
+
+\textbf{Ideals:}
+\begin{itemize}
+    \item $R$ is a field if and only if its only ideals are the zero ideal $(0)$ and the entire ring $R$
+    \item every ideal in $\Z$ is a principal ideal.
+\end{itemize}
+\end{document}
