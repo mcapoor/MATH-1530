@@ -1,0 +1,297 @@
+\documentclass[9pt]{memoir} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1cm}
+\usepackage{graphicx} 
+
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{enumitem}
+\usepackage{multicol} 
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\mfX}{\mathfrak{X}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\nonzeroparskip
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{multicols}{2}
+        
+\section*{Groups}
+    \emph{Group:} a set with a composition law which satisfies closure, associativity, identity, and inverse.
+
+    \emph{Order of a Group:} the number of elements in the group; also the smallest $n$ such that $a^n = e$
+
+    \emph{Group homomorphism:} a map $\phi: G \to H$ such that $\phi(ab) = \phi(a)\phi(b)$
+
+    \emph{Bijection:} a surjective and injective mapping 
+    \begin{enumerate}
+        \item Surjective (onto) - every element in $H$ is mapped to by some element in $G$  ($\forall h \in H, \exists g \in G \text{ such that } \phi(g) = h$)
+        \item Injective (one-to-one) - every element in $H$ is mapped to by at most one element in $G$; iff $\ker \phi = \{e\}$. ($\forall g_1, g_2 \in G, \phi(g_1) = \phi(g_2) \implies g_1 = g_2$)
+    \end{enumerate}
+
+    \emph{Isomorphism:} a bijective homomorphism; two isomorphic groups share exactly the same structure 
+
+    \emph{Kernel:} $\ker \phi = \{g \in G \mid \phi(g) = e\}$
+
+    \emph{Cosets:} with $H \subset G$, $gH = \{gh : h \in H\}$
+    \begin{itemize}
+        \item every $g \in G$ is in a coset of $H$
+        \item every coset of $H$ has the same size and two cosets of $H$ are either equal or disjoint 
+    \end{itemize}
+
+    \emph{Lagrange's Theorem:} if $G$ is a finite group and $H \subset G$, then $|H|$ divides $|G|$
+    \begin{itemize}
+        \item Corollary: if $g \in G$ has order $n$, then $n$ divides $|G|$
+    \end{itemize}
+
+    \emph{Unit group:} $R^* = \{a \in R: \exists b\in R \text{ such that } ab = 1\}$
+    \begin{itemize}
+        \item $\Z^* = \{\pm 1\}$
+        \item $\Z[i]^* = \{\pm 1, \pm i\}$
+        \item $(\Z/n\Z)^* = \{a \in \Z/n\Z : \gcd(a, n) = 1\}$
+        \item $\R[x]^* = \R^*$
+        \item $(\Z/p\Z)^* = \{1, \dots,\; p -1\}$
+    \end{itemize}
+
+    \emph{Subgroups:}
+    \begin{itemize}
+        \item the center of a group is the subgroup of elements that commute with all other elements
+        \item The center of $S_n$ is trivial for $n \geq 3$
+        \item The center of $D_n$ is trivial for odd $n \geq 3$ and is $\{e, r^{\frac{n}{2}}\}$ for even $n$ 
+        \item If $G$ is a finite group whose only subgroups are $\{e\}$ and $G$, then $|G|$ is prime or $G = \{e\}$
+    \end{itemize}
+
+    \emph{Fermat's Little Theorem:}
+    \[a^{p-1} \equiv 1 \mod p\]
+
+    \emph{Normal Group:} 
+    \[H = aHa^{-1} \quad \iff \quad a^{-1}Ha = H \quad \iff \quad a^{-1}Ha \subset H\]
+    \begin{itemize}
+        \item All subgroups of an abelian group are normal 
+        \item Any group is a normal subgroup of itself
+    \end{itemize}
+
+    \emph{Quotient group:} $G/N = \{gN: g \in G\}$ and 
+    \[aN \cdot bN = ab\cdot N\]
+
+    \emph{Cayley's Theorem:} Every group is isomorphic to a subgroup of a symmetric/permutation group
+
+    \emph{Lemma:} two orbits are identical or disjoint 
+
+    \emph{Abelian Cauchy:} If $G$ abelian and $p \mid G$, $G$ has an element of order $p$ 
+
+    \emph{Cauchy Theorem:} Every finite group with $p \mid \abs{G}$ has an element of order $p$
+
+    \emph{Proposition:} $\abs{H} = p^n$ has a subgroup of order $p^m$ for any $m \leq n$
+
+    If $G$ abelian, every subgroup is normal 
+
+    Every group has at least two normal subgroups: $\{e\}$ and $G$ 
+
+    \emph{Simple group:} a group whose only normal subgroups are $\{e\}$ and $G$
+
+    \emph{Proposition:} any group of prime order is simple
+
+    \emph{Proposition:} $\phi: G_1 \to G_2$ is a group homomorphism, $\ker \phi \trianglelefteq G_1$  
+
+    \emph{Normality:}
+    \begin{enumerate}
+        \item $H \trianglelefteq G$ if $gHg^{-1} \subseteq H, \forall g \in G$
+        \item $\forall g\in G, \{gHg^{-1}\} \trianglelefteq G$
+        \item there is an isomorphism $H \to g^{-1}Hg$
+    \end{enumerate}
+
+    \emph{Isomorphism theorem:} If $\phi: G_1 \to G_2$ is a group homomorphism with $\ker \phi = N$, then $G_1/\ker{\phi} \cong \text{Im}(\phi)$
+
+    \emph{Corrolary:}
+    \[\frac{\#G}{\#\ker(\phi)} = \#\text{Im}(\phi)\]
+
+    \emph{Group action:} $G$ group, $X$ set, $\phi: G \times X \to X$ such that 
+    \begin{enumerate}
+        \item \emph{Identity:} $e \cdot x = x \quad \forall x \in X$
+        \item \emph{Associativity:} $(g_1g_2) \cdot x = g_1\cdot (g_2 \cdot x)$
+    \end{enumerate}
+
+    \emph{Remark:} Defining an action $G$ on $X$ is equivalent to a homomorphism $\alpha: G \to S_X$ where $S_X$ is the set of permutations on $X$ and $\alpha(g): X \to X$ with $g\cdot x = \alpha(g)(x)$
+
+    \emph{Orbit:} $Gx = \{g\cdot x: g \in G\}$
+
+    \emph{Stabilizer:} $G_x = \{g \in G: g\cdot x = x\}$
+
+    \emph{Proposition:}
+    \[\abs{Gx} = \frac{\abs{G}}{\abs{G_x}}\]
+
+    \emph{Transitive action:} $Gx = X \quad \forall x \in X$
+
+    \emph{Orbit Stabilizer Counting TheoremL} $G, X$ finite $Gx_1, \dots, \; Gx_k$ distinct orbits, 
+    \[\abs{X} = \sum_{i=1}^l \abs{Gx_i} = \sum_{i=1}^K \frac{\abs{G}}{\abs{G_{x_i}}}\]
+
+    \emph{Theorem:} $\abs{G} = p^n$, then $Z(G) \neq \{e\}$
+
+    \emph{Conjugation action:} $g\cdot x = gxg^{-1} \in X$ 
+    \[G_x = \{g\in G: gxg^{-1} = x\} = \{g \in G: gx = xg\}\]
+
+    \emph{Corollary:} $\abs{G} = p^2$, $G$ is abelian 
+
+    \emph{Centralizer:} $Z_G(H) = \{g \in G: gh = hg \quad \forall h \in H\}$
+
+    \emph{Normalizer:} $N_G(H) = \{g\in G: g^{-1}Hg = H\}$
+
+    Sylow's theorems:
+    \begin{itemize}
+        \item \emph{p-Sylow subgroup:} $p^n \mid G$, $H \subseteq G$ with $\abs{H} = p^n$
+        \item If $p^r \mid \abs{G}$, $G$ has a subgroup of order $p^r$
+        \item $\abs{G} = \prod_i \abs{H_{p_i}}$ with $H_{p_i}$ p-Sylow subgroups of distinct $p_i$
+        \item For any two distinct p-Sylow subgroups, $P_1 \cap P_2 = \{e\}$
+    \end{itemize}
+    \begin{enumerate}
+        \item $\abs{G} = p^n\cdot k$, $G$ has at least one $p$-Sylow subgroup
+        \item All $p$-Sylow subgroups are conjugate: $\exists g \in G$, $H_2 = gH_1g^{-1}$
+        \item $n$ is the number of distinct p-Sylow subgroups. $p \mid \abs{G}$, $p \mid \abs{k}$, $n \equiv 1 \mod p$
+    \end{enumerate}
+
+    \emph{Lemma:} $N_G(H) = \{g\in G: g^{-1}Hg = H\}$. If $H \subseteq G$, $H$ has exactly $\#G/\$N_G(H)$ conjugates in $G$ 
+
+    \emph{Lemma:} $A, B \subset D$, $AB = \{ab: a \in A, b \in B\}$, 
+    \[\abs{AB} = \frac{\abs{A}\abs{B}}{\abs{A \cap B}}\]
+
+    \emph{Lemma:} 
+    \[\abs{HaK} = \frac{\abs{H}\abs{K}}{\abs{aHa^{-1} \cap K}}\]
+
+
+\section*{Rings}
+    \emph{Ring:} a set with two binary operations (addition and multiplication) which satisfy closure, associativity, identity, inverse, and distributivity
+    \begin{itemize}
+        \item $(R, +)$ is an abelian group with identity $0$
+        \item $(R, \times)$ is closed, has assoicativity, and has identity $1$
+        \item $R$ is associative under multiplication
+        \item $0a = 0 \quad \forall a \in R$
+        \item $(-a)(-b) = ab \quad \forall a, b \in R$
+    \end{itemize}
+
+    \emph{Ring Homomorphism:} a map $\phi: R \to S$ such that 
+    \begin{enumerate}
+        \item $\phi(a + b) = \phi(a) + \phi(b)$
+        \item $\phi(ab) = \phi(a)\phi(b)$
+        \item $\phi(1) = 1$
+    \end{enumerate}
+
+    \emph{Kernel:} $\ker \phi = \{r \in R : \phi(r) = 0\}$
+
+    \emph{Integral Domain:} a ring with no zero divisors ($ab = 0 \implies a = 0$ or $b = 0$)
+    \begin{itemize}
+        \item A commutative ring has cancellation iff it is an integral domain
+    \end{itemize}
+
+    \emph{Ideal:} a subset $I \subset R$ such that
+    \begin{enumerate}
+        \item $a, b \in I \implies a + b \in I$ (additive closure)
+        \item $a \in I, r \in R \implies ra \in I$ (multiplicative closure/absorption)
+    \end{enumerate}
+
+    \emph{Principal ideal:} $(c) = cR = \{rc : r \in R\}$
+    \begin{itemize}
+        \item Every ring has at least two ideals: $(0)$ and $R$
+    \end{itemize}
+
+    \emph{Quotient Ring:} $R/I$ is the set of cosets of $I$ in $R$ (a commutative ring) with addition and multiplication defined as
+    \begin{enumerate}
+        \item $(a + I) + (b + I) = (a + b) + I$
+        \item $(a + I)(b + I) = ab + I$
+    \end{enumerate}
+
+    \emph{Isomorphism Theorem:} if $\phi: R \to S$ is a surjective ring homomorphism with kernel $I$, then $R/I \cong \phi(R)$ iff $\phi$ is injective; the map $R \to R/I$ has kernel $I$
+   
+    \emph{Characteristic of a Ring:} the integer generating the kernel of $\phi: \Z \to R$. If $\phi$ not injective, the smallest $m$ such that $m\alpha = 0$ for all $\alpha \in R$. 
+
+    \emph{Principal Ideal Domain:} R is a PID (principal ideal domain) if all ideals are principal. (We also assume it is an integral domain $(ab = 0 \implies a = 0 or b = 0))$
+   
+    \emph{Unit:} $u \in R: uv = 1$ for some $v \in R$
+
+    \emph{Reducible:} a non-unit p is reducible if $p = ab$, where $a,b$ are non-units.
+
+    \emph{Associates:} $a, b \in R$ are associates if $a = ub$ for some unit $u \in R$ (this is an equivalence relation)
+
+    \emph{Unique Factorization Domain:} 
+    \begin{enumerate}
+        \item Every non-unit factors into finitely many irreducibles 
+        \item The factoring is unique up to units and reordering 
+    \end{enumerate}
+
+    \emph{Euclidean Domain:} an integral domain with a size function $\sigma: R \to \{0, 1, 2, \dots\}$ such that 
+    \begin{enumerate}
+        \item $\sigma(mn) \geq \sigma(m)$
+        \item $a = kb + r$ where $r = 0$ or $\sigma(r) < \sigma(b)$
+    \end{enumerate}
+
+    \emph{Theorem:} $ED \implies PID \implies UFD$ 
+
+    \emph{Lemma:} In a PID, if $p$ irreducible and $p \mid ab$, then $p \mid a$ or $p \mid b$
+
+\section*{Fields}
+    \emph{Field:} a commutative ring with identity where every nonzero element has a multiplicative inverse
+    \begin{itemize}
+        \item Every field is an integral domain but not every integral domain is a field
+        \item Corollary of integral domain: all fields have cancellation
+        \item A ring is a field iff $R^* = R \setminus \{0\}$
+        \item A ring is a field iff its only ideals are $(0)$ and $R$
+        \item A ring is a field iff it has division and commutativity
+    \end{itemize}
+
+    \emph{Theorem:} $R/I$ integral domain $\iff$ $I$ is prime. $R/I$ is a field $\iff$ $I$ is maximal. 
+
+    \emph{Vector space:} an abelian group under addition $V$ over a field $F$ with 
+
+    \emph{Theorem:} all ideals in $F[x]$ are principal 
+
+    \emph{Irreducibility:} $p(x)= a(x)b(x) \implies a(x)$ or $b(x)$ is a constant  
+
+    \emph{Theorem:} if $p(x) \in F[x]$ is irreducible, $I = p(x)F[x]$ is maximal 
+
+    \emph{Theorem:} if $F/p(x)F[x]$ is a field and contains a root of $p(x)$ 
+
+    \emph{Theorem:} if $F \subset K \subset L$ then 
+    \[[L : F] = [L:K][K:F]\]
+
+    \emph{Proposition:} the order of a finite field of Characteristic $p$ is some power of $p$.
+
+    \emph{Theorem:} $p$ prime and $d \geq 1$, $\mathbb{F}_p[x]$ contains an irreducible polynomial of degree $d$ 
+
+    \emph{Theorem:} There exists a field $F$ containing exactly $p^d$ elements ($d\geq 1$) and any two fields containing $p^d$ elements are isomorphic.
+
+    \emph{Fundamental Theorem of Algebra:} $p(z) \in \C[z]$ has a root in $\C$.
+
+\end{multicols}
+\end{document}
