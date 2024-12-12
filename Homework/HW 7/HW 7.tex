@@ -1,0 +1,262 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\left\langle #1 \right\rangle}
+\newcommand{\bra}[1]{\left\langle #1 \right\vert}
+\newcommand{\ket}[1]{\left\vert #1 \right\rangle}
+
+\title{Math 1530: Homework 7}
+\author{Milan Capoor}
+\date{7 November 2023}
+
+\begin{document}
+\maketitle
+\section*{Problem 6.3}
+\emph{In the dihedral group $D_n$, let $R$ be a clockwise rotation by $2\pi/n$ radians, and
+let $F$ be a flip.}
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that the subgroup $\{e, R, R_2, ..., R_{n-1}\}$ is a normal subgroup of $D_n$.
+    
+        \color{blue}
+            Let $H = \{e, R, R_2, ..., R_{n-1}\}$. $H$ is normal if $\forall a \in D_n$, $\forall h \in H$,  
+            \[a^{-1}ha \in H\] 
+            First, notice that if $a$ and $a^{-1}$ are rotations, then $a, a^{-1}\in H$ and the product is in $H$ by group closure. 
+            
+            If $a$ and $a^{-1}$ are not rotations, then they are flips and thus not part of the subgroup. Example 6.8 very neatly gives the formula 
+            \[\text{flip} \cdot \text{rotation} \cdot \text{flip} = \text{rotation}\]
+            which means that for $a, a^{-1} \in D_n$ (and not in $H$), 
+            \[a^{-1}ha \in H \quad \forall h\in H\]
+
+            Thus, the subgroup of rotations is normal because conjugations by all members of the dihedral group are in the subgroup. $\qed$
+        \color{black}
+
+    \item Let $n > 3$. Prove that the subgroup $\{e, F\}$ is not a normal subgroup of $D_n$
+    
+        \color{blue}
+            Suppose $H = \{e, F\}$ were normal. Then, $a^{-1}Fa \in H \quad \forall a\in D_n$. However, with $n > 3$, flips in $D_n$ are not in $Z(D_n)$, i.e., they do not commute with every element in $D_n$. Thus, for some $g \in D_n$
+            \[g^{-1}Fg \neq Fg^{-1}g = F\]
+            Further, $g^{-1}Fg \neq e$ because 
+            \[g^{-1}Fg = e \implies Fg = g \implies F = e \quad \text{contradiction}\]
+            so we have found an element in $D_n$ for which $g^{-1}Fg \not \in H$ so $H$ is not normal. $\qed$
+        \color{black}
+\end{enumerate}
+
+\pagebreak
+\section*{6.5}
+Let $G$ be a group, and let $H \subset G$ be a subgroup of index 2; i.e., there are
+exactly two cosets of $H$. Prove that $H$ is a normal subgroup of $G$. (Hint. For every $g \in G$, prove that the left coset $gH$ is equal to the right coset $Hg$.)
+
+    \color{blue}
+        Let $g \in G$. If $g \in H$, then $g \in eH = H = He$. Here, left and right cosets are equal so $H$ is normal.
+        
+        In the other case, if $g \not \in H$, then we know that it is in $gH$ because $H$ has only two cosets and cosets are disjoint. Equivalently, $gH = \{g \in G: g \not \in H\}$. 
+
+        However, we can make exactly the same argument for right cosets. If $g \not \in H$, then it must be in $Hg = \{g \in G: g \not \in H\}$. Clearly, 
+        \[\{g \in G: g \not \in H\} = Hg = \{g \in G: g \not \in H\} = gH\]
+        so for all $g \in G$, 
+        \[gH = Hg\]
+        and $H$ is normal. $\qed$
+
+    \color{black}
+\pagebreak
+
+\section*{6.6abc}. 
+Let $G$ be a group, let $H \subset G$ and $K \subset G$ be subgroups, and assume that
+$K$ is a normal subgroup of $G$.
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that $HK = \{hk : h \in H, k \in K\}$ is a subgroup of $G$.
+    
+        \color{blue}
+            \begin{enumerate}
+                \item \emph{Closure}: Let $h_1, h_2 \in H$ and $k_1, k_2 \in K$. We want to show that 
+                \[h_1k_1 \cdot h_2 k_2 \in HK\]
+
+                Since $K$ is normal, we can say that $k_2= h_2^{-1}k_3h_2$ for some $k_3 \in K$. Thus
+                \[h_1k_1\cdot h_2k_2 = h_1k_1\cdot h_2(h_2^{-1}k_3h_2) = h_1k_1\cdot k_3h_2\]
+
+                Let $k = k_1k_3 \in K$ by closure. So 
+                \[h_1kh_2\]
+                Then by closure of $h$, we can write $h_1 = h\cdot h_2^{-1}$ for some $h \in H$. But by normality of $K$, this gives us 
+                \[h\cdot h_2^{-1}kh_2 = h\cdot k' \quad (k'\in K)\]
+                Hence, $h_1k_1 \cdot h_2k_2 \in HK$. 
+
+                \item \emph{Associativity}:
+                \[(h_1k_1 \cdot h_2k_2)\cdot (h_3k_3) = h_1k_1h_2k_2h_3k_3\]
+                \[h_1k_1 \cdot (h_2k_2\cdot h_3k_3) = h_1k_1h_2k_2h_3k_3\]
+                
+                \item \emph{Identity}: $H, K$ subgroups implies that $e \in G$ is in $H$ and $K$ so 
+                \[ee = e \in HK\] 
+                
+                \item Inverses: 
+                \[(hk)(hk)^{-1} = hkk^{-1}h^{-1}\]
+                By closure and normality, $hkk^{-1}h^{-1} \in K$ and $e\in H$ so 
+                \[e \cdot (hkk^{-1}h^{-1}) = hkk^{-1}h^{-1} = e \in HK\]
+            \end{enumerate}
+        \color{black}
+
+    \item Prove that $H \cap K$ is a normal subgroup of $H$ and that $K$ is a normal subgroup of $HK$.
+    
+        \color{blue}
+            Showing that $K \subset HK$ is easy because $K \subset G$ is normal and from part (a), $HK \subset G$. Then because $HK = \{hk: h\in H, k \in K\}$, it is clear that $K = \{ek : e\in H, k\in K\} \subset HK$. So since $K$ is a group, it is a subgroup of $HK$. Finally, because $K$ is normal in $G$, it must be normal in $HK$ since every element of $HK$ is in $G. \qed$
+
+            Now it just remains to show that $H \cap K$ is a normal subgroup of $H$. First note that $H \cap K \subseteq H$. Then from HW 2, Exercise 2.30, we know the intersection of subgroups is itself a subgroup. Finally, since every element of $H\cap K$ is itself a member of $K$, $g^{-1}kg \in K \subset H \cap K, \quad \forall g \in G, k \in K$. Thus, $H \cap K$ is normal. $\qed$. 
+        \color{black}
+
+    \item Prove that $HK/K$ is isomorphic to $H/(H \cap K)$.\footnote{This is known as the second isomorphism theorem for groups (also sometimes called the diamond or parallelogram
+    theorem)} (Hint. What is the kernel of the surjective homomorphism $H \to HK/K$?)
+
+        \color{blue}
+            By the first isomorphism theorem for groups, the map $\alpha: G_1/N \to G_2$ is an isomorphism if $N$ (a normal subgroup) is the kernel of a surjective homomorphism $\phi: G_1 \to G_2$. In our case, $\phi: H \to HK/K$ and (if it exists), $\alpha: H/(H\cap K) \to HK/K$ following this commutative diagram:
+            
+            \begin{center}
+                \begin{tikzpicture}
+                    \node (G1) at (0,5)  {$H$};
+                    \node (G1/N) at (0, 0) {$H/(H \cap K)$};
+                    \node (G2) at (5, 5) {$HK/K$};
+                    \draw[->] (G1) -- (G2) node[xshift=-1in, yshift=0.2in] {$\phi$};
+                    \draw[->] (G1) -- (G1/N) node[yshift=1in, xshift=-0.2in] {$\pi$};
+                    \draw[->] (G1/N) -- (G2) node[yshift=-1in, xshift=-0.7in] {$\alpha$};
+                \end{tikzpicture}
+            \end{center}
+
+            So, we just need to show that $\ker(\phi) = H\cap K$. Observe:
+            \[\ker(\phi) = \{h \in H: \phi(h) = eK\} = \{h \in H, k \in K: hkK = K\} = \{h\in H: hK = K\} = \{h \in H: h \in K\} = H \cap K\] 
+
+            Thus, $\alpha: H/(H\cap K) \to HK/K$ is an isomorphism. $\qed$ 
+        \color{black}
+\end{enumerate}
+
+\pagebreak
+
+\section*{6.7c}
+Let $G$ be a group, let $K \subseteq H \subseteq G$ be subgroups, and assume that $K$ is a
+normal subgroup of $G$. Prove that $H$ is a normal subgroup of $G$ if and only if $H/K$ is a normal subgroup of $G/K$. (Note. You may take the statements in parts (a) and (b) of this problem as given.)
+
+    \color{blue}
+        Suppose $H$ is a normal subgroup of $G$. We would like to show that $H/K$ is a normal subgroup of $G/K$. Equivalently, $\forall hK \in H/K$,
+        \[(gK)(hK)(gK)^{-1} \in H/K \quad (gK \in G/K)\]
+        Since $K$ is a normal subgroup of $G$, ``the formula'' is well-defined so 
+        \[(gK)(hK)(gK)^{-1} = (gK)(hK)(g^{-1}K) = ghg^{-1}\cdot K\]
+        Using the normality of $H$, 
+        \[ghg^{-1} = h' \in H\]
+        so 
+        \[ghg^{-1}\cdot K = h'K \in H/K\]
+        Hence, $H/K$ is a normal subset of $G/K$.
+
+        For the other direction, suppose $H/K$ is a normal subgroup of $G/K$. Then for every $hK \in H/K$ and every $gK \in G/K$, 
+        \[(gK)(hK)(gK)^{-1} = h'K \qquad (h' \in H)\]
+        As above, because $K$ is normal,
+        \[(gK)(hK)(gK)^{-1} = ghg^{-1} \cdot K = h' \cdot K \implies ghg^{-1} = h' \in H\]
+        Since $H$ is a subgroup of $G$, this is exactly the condition for $H$ to be normal. $\qed$
+        
+    \color{black}
+\pagebreak
+
+\section*{6.10}
+Let $G$ be a group, let X be a set, and let $S_X$ be the symmetry group of $X$ as
+defined in Example 2.19. Let
+\[\alpha : G \to S_X\]
+be a function from $G$ to $S_X$ , and for $g\in G$  and $x \in X$, let $g \cdot x = \alpha(g)(x)$. Prove that this defines a group action if and only if the function $\alpha$ is a group homomorphism.
+
+    \color{blue}
+        If $\alpha$ is a group action, then it must satisfy $e\cdot x = \alpha(e)(x) = x$ and 
+        \[(g_1g_2)\cdot x = g_1\cdot(g_2\cdot x) \implies \alpha(g_1g_2)(x) = \alpha(g_1)\alpha(g_2)(x)\]
+
+        The first equation implies that $\alpha(e) = e$. The second equation implies that 
+        \[\alpha(g_1g_2) = \alpha(g_1)\alpha(g_2).\]
+        These are precisely the conditions for a map to be a homomorphism, so $\alpha$ is a group homomorphism. 
+
+        Conversely, if $\alpha$ is a group homomorphism, then 
+        \[\alpha(g_1 g_2) = \alpha(g_1)\alpha(g_2) \quad g_1, g_2 \in G\]
+
+        Consider $\alpha(e)(x)$. Since $\alpha$ is a homomorphism, $\alpha(e) = e$ so $\alpha(e)(x) = e\cdot x = x$. 
+
+        Now observe that 
+        \[\alpha(g_1g_2)(x) = \alpha(g_1)\alpha(g_2) = g_1 \cdot g_2 \cdot x\]
+        and 
+        \[\alpha(g_1)(\alpha(g_2)(x)) = g_1 \cdot \alpha(g_2)(x) = g_1\cdot g_2\cdot x\]
+        So $\alpha$ is associative and respects identity. Hence, it is a group action on $X. \qed$ 
+    \color{black}
+
+\pagebreak
+
+\section*{6.11}
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that $G$ acts transitively on $X$ if and only if there is at least one $x \in X$ such that $Gx = X$.
+    
+    (See Definition 6.20 in the textbook for the definition of a transitive action.)
+    
+        \color{blue}
+            By Definition 6.20, if $G$ acts transitively on $X$, then $Gx = X \quad \forall x \in X$. So clearly, there must be at least one $x \in X$ for which $Gx = X$. 
+
+            For the other direction, suppose there is at least one $x \in X$ for which $Gx = X$, i.e. the orbit of $x$ is $X$. This means that every $y \in X$ can be written $gx = y$ for some $g \in G$. Since $G$ is a group, we have closure and equivalently with some $g'\in G$, 
+            \[g'gx = g'y = y' \in X\]
+            But $g'g$ is defined for all $g', g \in G$ so the product $g'y$ exists for any $g'$ and any $y$. That is, $Gy = X$ for all $y \in X$. So $G$ acts transitively on $X. \qed$
+        \color{black}
+
+    \item Prove that $G$ acts transitively on $X$ if and only if for every pair of elements $x, y \in X$ there exists a group element $g\in G$ such that $gx = y$.
+    
+        \color{blue}
+            From part (a), if $G$ acts transitively, then for all $x\in X, Gx = X$, which means that there is a $g\in G$ such that $gx = y$ for any $y \in X$. 
+
+            Conversely, if for all $x, y \in X$, $\exists g\in G: gx =y$, then we know that there is an equivalence relation on $X$ such that $x \sim y$ and the equivalence class of $x$ is the orbit of $x$. In other words, for any possible $y \in X$, $y \in Gx$. So, for a given $x$, the orbit of $x$ is the entire set:
+            \[Gx = X\]
+            As this is true for all $x\in X$, $G$ acts transitively on $X. \qed$
+        \color{black}
+
+    \item If $G$ acts transitively on $X$, prove that $\#X$ divides $\#G$
+
+        \color{blue}
+            If $G$ acts transitively on $X$, $Gx = X$ so $\#Gx = \#X$. Proposition 6.19 says 
+            \[\#Gx = \frac{\#G}{\#G_x}\]
+            Rearranging, 
+            \[\#G_x = \frac{\#G}{\#Gx} = \frac{\#G}{\#X}\]
+            
+            Clearly, $\#G_x$ is an integer so $\#X \; | \; \#G. \qed$
+        \color{black}
+\end{enumerate}
+\end{document}

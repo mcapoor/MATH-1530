@@ -1,0 +1,648 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{enumitem}
+\usepackage{bbm}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{empheq}
+\usepackage{xcolor}
+\renewcommand{\L}[1]{\mathcal{L}\{#1\}}
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\langle #1 \rangle}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\rb}{\; \mathsf{R}_\mathcal{B}\;}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{Homework 1}
+\author{Milan Capoor}
+\date{19 September 2023}
+
+\begin{document}
+\maketitle
+\section*{1.14}
+\emph{Which of the following binary relations are reflexive, symmetric, antisymmetric, and/or transitive? Which are equivalence relations? Which are partial orders?}
+\begin{enumerate}[label=(\alph*)]
+    \item $S =\R$ and $a\; \mathsf{R}_\mathcal{B} \; b \text{ iff } a \geq b$ 
+    
+    \color{blue}
+        \begin{itemize}
+            \item Reflexive: 
+            
+            \emph{Claim:} $a \rb a$
+
+            \emph{Proof:} By definition, iff $a \geq a$ then $a \rb a$. As $a = a$, the claim is clearly true. 
+
+            \item Transitive: 
+            
+            \emph{Claim:} $a \rb c$
+
+            \emph{Proof:}
+            \begin{align*}
+                &(a \rb b \iff a \geq b) \land (b \rb c \iff b \geq c) \\
+                &\implies a \geq b \geq c\\
+                &\therefore a \geq c \iff a \rb c \qed
+            \end{align*}
+
+            \item Antisymmetric: 
+            
+            \emph{Claim:} $a = b$ 
+
+            \emph{Proof:}
+            \begin{align*}
+                &(a \rb b \iff a \geq b) \land (b \rb a \iff b \geq a)\\
+                &\implies a \geq b \geq a\\
+                &\implies a = b \qed
+            \end{align*}
+        \end{itemize}
+        So (a) is a \boxed{\text{partial order}}
+    \color{black}
+        
+    \item $S =\mathbb{N}$ and $a\; \mathsf{R}_\mathcal{B} \; b \text{ iff } \gcd(a, b) = b$ 
+        
+    \color{blue}
+        \begin{itemize}
+            \item Reflexive: 
+            \[a \rb a \iff \gcd(a, a) = a\]
+            To show the RHS holds, observe that \[\gcd(a, a) = d \implies d \leq a\] 
+            Moreover, $d$ is larger than any other factor of $a$. As $a = a * 1$, however, $a \leq d \leq a$ so $d = a \implies \gcd(a, a) = a \checkmark$
+
+            \item Transitive: 
+            
+            \emph{Claim:} $a \rb b \land b \rb c \implies a \rb c$
+
+            \emph{Proof:} 
+            \[\gcd(a, b) = b \land \gcd(b, c) = c \implies (b | a) \land (c | b)\]
+            Hence, $b = cn$ for some $n \in \N$ and $a = bm$ for some $m \in \N$. Thus 
+            \[a = bm = (cn)m \implies c | a \implies \gcd(a, c) = c\]
+
+            \item Antisymmetric: 
+            \begin{align*}
+                a \rb b &\iff \gcd(a, b) = b\\
+                b \rb a &\iff \gcd(b, a) = a\\
+                (a \rb b) \land (b \rb a) &\implies (\gcd(a, b) = b) \land (\gcd(b,a)= a)\\
+                \gcd(a, b) = b &\implies b | a\\
+                \gcd(b, a) = a &\implies a | b\\
+                (b | a) \land (a | b) &\implies (a \leq b) \land (b \leq a)\\
+                \therefore \quad &a = b \qed
+            \end{align*}
+        \end{itemize}
+    \color{black}
+
+    \item $S =\mathbb{N}$ and $a\; \mathsf{R}_\mathcal{B} \; b \text{ iff } a | b$ 
+    
+    \color{blue}
+    \begin{itemize}
+        \item Reflexive: 
+        \[a \rb a \iff a | a \quad \checkmark\]
+
+        \item Transitive: 
+        
+        \item Anti-Symmetric: 
+        \begin{align*}
+            (a \rb b \land b \rb a) \iff (a | b \land b | a) \implies a = b
+        \end{align*}
+    \end{itemize}
+    So (c) is a \boxed{\text{partial order}}.    
+    \color{black}
+
+    \item $S$ is the set of students at your school, and $a\; \mathsf{R}_\mathcal{B} \; b$ iff $a$ and $b$ have the same birthday 
+    
+    \color{blue}
+    \begin{itemize}
+        \item Reflexive: 
+        \[a \rb a \iff \text{ a has the same birthday as themselves} \quad \checkmark\]
+
+        \item Transitive: 
+        \begin{align*}
+            (a \rb b &\iff \text{ a and b have the same birthday})\\
+             &\land (b \rb c \iff \text{ b and c have the same birthday})\\
+            b \rb b &\implies \text{ a and b and c all share a birthday} \implies a \rb c \quad \checkmark
+        \end{align*}
+
+        \item Symmetric: 
+        \begin{align*}
+            (a \rb b) &\implies (b \rb a)\\
+            &\iff\\
+            \text{ a and b share a birthday} &\implies \text{ b and share a birthday}
+        \end{align*}
+        which is of course true because it is the same day. $\checkmark$
+
+    \end{itemize}    
+    So (d) is an \boxed{\text{equivalence relation}}.
+    \color{black}
+
+    \item $S$ is a graph, and $a\; \mathsf{R}_\mathcal{B} \; b \text{ iff } a = b$ or there is an edge connecting $a$ to $b$
+    
+    \color{blue}
+        Trivially, (e) is reflexive because $a = a \iff a \rb a$. Further, it is symmetric because edges are unordered so 
+        \[[a, b] = [b, a] \implies a \rb b = b \rb a\] 
+        Finally, it is transitive because if $a$ is connected to $b$ and $b$ is connected to $c$, we have a path between $a$ and $c$ so $a$ is connected to $c$ by definition. Thus $a \rb b \land b \rb c \implies a\rb c$ so (e) is an \boxed{\text{equivalence relation}}.
+    \color{black}
+
+    \item $S$ is a graph, and $a\; \mathsf{R}_\mathcal{B} \; b \text{ iff } a = b$ or a sequence of edges connects $a$ to $b$
+    
+    \color{blue}
+        If there is a sequence of edges connecting $a$ to $b$, then $a$ and $b$ are in the same connected component and by definition, the relation between $a$ and $b$ is an \boxed{\text{equivalence relation}}.
+    \color{black}
+\end{enumerate}
+\pagebreak 
+
+\section*{2.5} 
+\emph{Let $G$ be a group. Prove the remaining parts of Proposition 2.9, justifying each step using the group axioms and previous proofs.}
+\begin{enumerate}[label=(\alph*)]
+    \item $G$ has exactly one identity element
+    
+    \color{blue}
+    Suppose $e$ and $e'$ are both identity elements of $G$. Since $e$ is an identity, $e \star e' = e'$. But simultaneously, because $e'$ is an identity, $e \star e'= e$. Therefore, $e' = e \qed$
+    \color{blue}
+
+    \item Let $g, h \in G$, Then $(g \cdot h)^{-1} = h^{-1} \cdot g^{-1}$
+    
+    \color{blue}
+    Assume they are not equal. Then, 
+    \begin{align*}
+        (g \cdot h)^{-1} \cdot (g \cdot h) &\neq h^{-1} \cdot g^{-1} \cdot (g \cdot h)\\
+        e &\neq h^{-1} \cdot g^{-1} \cdot g \cdot h\\
+        &\neq h^{-1} \cdot (g^{-1} \cdot g) \cdot h\\
+        &\neq h^{-1} \cdot e \cdot h\\
+        &\neq h^{-1}  \cdot h\\
+        &\neq e
+    \end{align*}
+    but this is a contradiction so $(g \cdot h)^{-1} = h^{-1} \cdot g^{-1}. \qed$
+    \color{black}
+
+    \item Let $g \in G$. Then $(g^{-1})^{-1} = g$
+    
+    \color{blue}
+        Assume $(g^{-1})^{-1} \neq g$. But then 
+        \[(g^{-1})^{-1}\cdot (g^{-1}) \neq g \cdot g^{-1}\]
+        which by the definition of inverses is 
+        \[e \neq e\]
+        But this is a contradiction. $\qed$
+    \color{black}
+\end{enumerate}
+\pagebreak 
+
+\section*{2.7}
+\emph{Suppose that $G$ is a group satisfying weaker axioms -- a Right-Identity Axiom, a Right-Inverse Axiom, and an Associative law. Prove that $G$ is a group.}
+
+\emph{Hint: First show that the right-inverse of $g$ is also a left-inverse of $g$, and then show that the right-identity element is also a left-identity element.}
+
+\color{blue}
+Let $g'$ be the inverse of $g$. We want to show that $g'g = gg' = e$:
+\begin{align*}
+    g'g &= g'ge \quad (\text{right-identity})\\
+    &= g'g \cdot (g'g \cdot (g'g)') \quad (\text{right-inverse})\\
+    &= g'\cdot (g g') \cdot g \cdot (g'g)' \quad (\text{associativity})\\
+    &= g'eg \cdot (g'g)' \quad (\text{right-inverse})\\
+    &= g'g \cdot (g'g)' \quad (\text{right-identity})\\
+    &= e \quad (\text{right-inverse})
+\end{align*}
+So $g'g = gg'$ and a right-inverse is also a left-inverse.
+
+Now to show the bidirectional identities, consider
+\[geg = geg\]
+which by the inverses is 
+\[g(gh)g=g(hg)g\]
+then by associativity,
+\[g(gh)g = (gh)gg\]
+\[geg = egg\]
+
+Lemma: If $g_1a= g_2a$, $g_1 = g_2$ 
+
+Proof: Let $a^{-1}$ be the inverse of $a$. Then, 
+\begin{align*}
+    (g_1a)a^{-1} &=(g_2a)a^{-1}\\
+    g_1(aa^{-1}) &= g_2(aa^{-1}) \quad \text{(by associativity)}\\
+    g_1e &= g_2 e \qquad\quad\; \text{(by right inverse)}\\
+    g_1 &= g_2
+\end{align*}
+
+Applying this lemma to $geg = egg$, 
+\[ge = eg\]
+proving that a right-identity is also a left-identity. 
+\color{black}
+\pagebreak
+
+\section*{2.10}
+\emph{Let $G$ be a finite cyclic group of order $n$, and let $g$ be a generator of $G$. Prove that $g^k$ is a generator of $G$ iff $\gcd(k, n) = 1$}
+
+\color{blue}
+If $\gcd(k, n) = 1$, then $ka + nb = 1 \quad a, b \in \Z$. But as $g$ is a generator, we can write
+\[g = g^1 = g^{\gcd(k,n)} = g^{ka+nb} = g^{ka} \cdot g^{nb} = (g^k)^a \cdot (g^n)^b\]
+But as G is a finite cyclic group of order $n$, $g^n = e$ so
+\[(g^k)^a \cdot (g^n)^b = (g^k)^a \cdot e^b = (g^k)^a\]
+Thus $(g^k)^a = g$ for some $a$ so $\brak{g^k} = \brak{g} = G. \qed$
+\color{black}
+\pagebreak
+
+\section*{2.15b} 
+\emph{Let $SL_2(\R)$ be the set of $2\times 2$ matrices}
+\[SL_2(\R) = \{\begin{pmatrix}
+    a & b\\
+    c & d
+\end{pmatrix}: a, b, c,d \in \R, \; ad-bc = 1\}\]
+\emph{Prove that $SL_2(\R)$ is a group with group law multiplication.}
+
+\color{blue}
+To be a group, $SL_2(\R)$ must have an identity element, and inverse element, and be associative. 
+
+The identity element for matrices holds for $SL_2(\R)$ because
+\[\begin{pmatrix}
+    a & b\\
+    c & d
+\end{pmatrix} \begin{pmatrix}
+    1 & 0\\
+    0 & 1
+\end{pmatrix} = \begin{pmatrix}
+    a & b\\
+    c & d
+\end{pmatrix}\]
+and 
+\[\begin{pmatrix}
+    1 & 0\\
+    0 & 1
+\end{pmatrix} \in SL_2(\R) \impliedby (1)(1) - (0)(0) = 1\]
+
+Similarly, the normal inverse works:
+\[\begin{pmatrix}
+    a & b\\
+    c & d
+\end{pmatrix} \begin{pmatrix}
+    d & -b\\
+    -c & a
+\end{pmatrix} = \begin{pmatrix}
+    ad - bc & -ab + ba\\
+    cd - dc & -cb + da
+\end{pmatrix} = \begin{pmatrix}
+    1 & 0\\
+    0 & 1
+\end{pmatrix}\] 
+and 
+\[\begin{pmatrix}
+    d & -b\\
+    -c & a
+\end{pmatrix} \in SL_2(\R)\]
+because 
+\[da - (-b)(-c) = 1 \impliedby ad-bc = 1\]
+
+Finally, we observe that 
+\begin{align*}
+    \left(\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}\begin{pmatrix}
+        e & f\\
+        g & h
+    \end{pmatrix}\right) \begin{pmatrix}
+        i & j\\
+        k & l
+    \end{pmatrix} &= \begin{pmatrix}
+        ae + bg & af + bh\\
+        ce + dg & cf + dh
+    \end{pmatrix}\begin{pmatrix}
+        i & j\\
+        k & l
+    \end{pmatrix}\\
+    &= \begin{pmatrix}
+        aei + bgi + afk + bhk & aej + bgj + afl + bhl\\
+        cei + dgi + cfk + dhk & cej + dgj + cfl + dhl
+    \end{pmatrix}\\
+    \begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}\left(\begin{pmatrix}
+        e & f\\
+        g & h
+    \end{pmatrix} \begin{pmatrix}
+        i & j\\
+        k & l
+    \end{pmatrix}\right) &= \begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix} \begin{pmatrix}
+        ei + fk & ej + fl\\
+        gi + hk & gj + hl
+    \end{pmatrix}\\
+    &= \begin{pmatrix}
+        aei + afk + bgi + bhk & aek + afl + bgj + bhl\\
+        cei + cfk + dgi + dhk & cej + cfl + dgj + dhl
+    \end{pmatrix}\\
+    \begin{pmatrix}
+        aei + bgi + afk + bhk & aej + bgj + afl + bhl\\
+        cei + dgi + cfk + dhk & cej + dgj + cfl + dhl
+    \end{pmatrix} &= \begin{pmatrix}
+        aei + afk + bgi + bhk & aej + afl + bgj + bhl\\
+        cei + cfk + dgi + dhk & cej + cfl + dgj + dhl
+    \end{pmatrix}\\
+    \left(\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}\begin{pmatrix}
+        e & f\\
+        g & h
+    \end{pmatrix}\right) \begin{pmatrix}
+        i & j\\
+        k & l
+    \end{pmatrix} &= \begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}\left(\begin{pmatrix}
+        e & f\\
+        g & h
+    \end{pmatrix} \begin{pmatrix}
+        i & j\\
+        k & l
+    \end{pmatrix}\right)
+\end{align*}
+so associativity holds.
+
+Thus, $SL_2(\R)$ is a group. $\qed$
+\color{black}
+\pagebreak
+
+\section*{2.16}
+\emph{Prove or disprove that each of the following subsets of $GL_2(\R)$ is a group.}
+\begin{enumerate}[label=(\alph*)]
+    \item $\{\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}: a, b, c,d \in GL_2(\R): \; ad-bc = 2\}$
+
+    \color{blue}
+        This subset is not a group because the identity for $GL_2(\R)$ is not in the given subset: 
+        \[\det \begin{pmatrix}
+            1 & 0\\
+            0 & 1
+        \end{pmatrix} = (1)(1) - (0)(0) = 1 \neq 2 \qed\]
+    \color{black}
+
+    \item $\{\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}: a, b, c,d \in GL_2(\R): \; ad-bc = \{-1, 1\}\}$
+
+    \color{blue}
+        Let $B$ denote the subset in question. Then because $SL_2(\R)$ is a subgroup of $B$ (notice the inclusion mapping of $SL_2(\R)$ to $B$ via the addition of the condition $ad - bc = -1$) so $B$ must be a group since $SL_2(\R)$ is a group. $\qed$
+    \color{black}
+
+    \item $\{\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}: a, b, c,d \in GL_2(\R): \; c = 0\}$
+
+    \color{blue}
+    Let the subset in question be $C$. Then the inverse of $GL_2(\R) \in C$ because
+    \[\begin{pmatrix}
+        a & b\\
+        0 & d
+    \end{pmatrix}\begin{pmatrix}
+        \frac{d}{ad} & -\frac{b}{ad}\\
+        0 & \frac{a}{ad}
+    \end{pmatrix} = \begin{pmatrix}
+        \frac{ad + 0}{ad} & \frac{-ab}{ad} + \frac{ba}{ad}\\
+        0 & \frac{da}{a}
+    \end{pmatrix} = \begin{pmatrix}
+        1 & 0\\
+        0 & 1
+    \end{pmatrix}\]
+    and $\frac{d}{ad}\cdot \frac{a}{ad} - 0 \neq 0$. 
+
+    Also, the identity of $GL_2(\R)$ has $c = 0$ so it is in $C$.
+
+    Finally, observe that 
+    \begin{align*}
+        \left(\begin{pmatrix}
+            a & b\\
+            0 & d
+        \end{pmatrix}\begin{pmatrix}
+            e & f\\
+            g & h
+        \end{pmatrix}\right) \begin{pmatrix}
+            i & j\\
+            k & l
+        \end{pmatrix} &= \begin{pmatrix}
+            iae + ibg + kaf + kbh & laf+lbh + aei + bgi\\
+            dgi + dhk & dhl + dgi
+        \end{pmatrix}\\
+        \begin{pmatrix}
+            a & b\\
+            0 & d
+        \end{pmatrix}\left(\begin{pmatrix}
+            e & f\\
+            g & h
+        \end{pmatrix} \begin{pmatrix}
+            i & j\\
+            k & l
+        \end{pmatrix} \right) &= \begin{pmatrix}
+            aei + afk + bgi + bhk & afl + aei + bhl + bgi\\
+            dgi+ dhk & dhl + dgi
+        \end{pmatrix}\\
+        \left(\begin{pmatrix}
+            a & b\\
+            0 & d
+        \end{pmatrix}\begin{pmatrix}
+            e & f\\
+            g & h
+        \end{pmatrix}\right) \begin{pmatrix}
+            i & j\\
+            k & l
+        \end{pmatrix} &= \begin{pmatrix}
+            a & b\\
+            0 & d
+        \end{pmatrix}\left(\begin{pmatrix}
+            e & f\\
+            g & h
+        \end{pmatrix} \begin{pmatrix}
+            i & j\\
+            k & l
+        \end{pmatrix} \right)
+    \end{align*}
+    so we have associativity. Thus, $C$ is a group. $\qed$
+    \color{black}
+
+
+    \item $\{\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}: a, b, c,d \in GL_2(\R): \; d = 0\}$
+
+    \color{blue}
+        Denote the subgroup in question $D$. $D$ is not a group because the identity for $GL_2(\R)$ is not in $D$:
+        \[\begin{pmatrix}
+            a & b\\
+            c & 0
+        \end{pmatrix} \neq \begin{pmatrix}
+            1 & 0\\
+            0 & 1
+        \end{pmatrix} \quad \forall a, b, c\]
+    \color{black}
+
+    \item $\{\begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}: a, b, c,d \in GL_2(\R): \; a = d = 1 \text{ and } c = 0\}$
+
+    \color{blue}
+    The subset has an inverse because 
+    \[\begin{pmatrix}
+        1 & b\\
+        0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        1 & -b\\
+        0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        1 & 0\\
+        0 & 1
+    \end{pmatrix}\] 
+    Further, it has an identity because 
+    \[\begin{pmatrix}
+        1 & b\\
+        0 & 1
+    \end{pmatrix} \begin{pmatrix}
+        1 & 0\\
+        0 & 1
+    \end{pmatrix} = \begin{pmatrix}
+        1 & b\\
+        0 & 1
+    \end{pmatrix}\] 
+    Finally it satisfies associativity because
+    \begin{align*}
+        \left(\begin{pmatrix}
+            1 & a\\
+            0 & 1
+        \end{pmatrix} \begin{pmatrix}
+            1 & b\\
+            0 & 1
+        \end{pmatrix}\right) \begin{pmatrix}
+            1 & c\\
+            0 & 1
+        \end{pmatrix} &= \begin{pmatrix}
+            1 & a + b + c\\
+            0 & 1
+        \end{pmatrix}\\
+        \begin{pmatrix}
+            1 & a\\
+            0 & 1
+        \end{pmatrix} \left(\begin{pmatrix}
+            1 & b\\
+            0 & 1
+        \end{pmatrix} \begin{pmatrix}
+            1 & c\\
+            0 & 1
+        \end{pmatrix}\right) &= \begin{pmatrix}
+            1 & a + b + c\\
+            0 & 1
+        \end{pmatrix}\\
+        \begin{pmatrix}
+            1 & a + b + c\\
+            0 & 1
+        \end{pmatrix} &= \begin{pmatrix}
+            1 & a + b + c\\
+            0 & 1
+        \end{pmatrix}
+    \end{align*}
+    So it is a group. $\qed$
+    \color{black}
+\end{enumerate}
+\pagebreak 
+
+\section*{2.20}
+\emph{If $\phi$ is a bijective homomorphism , the inverse map $\phi^{-1} : G_2 \to G_1$ exists. Prove that that $\phi^{-1}$ is a homomorphism from $G_2$ to $G_1$}
+
+\color{blue}
+$\phi^{-1}$ is a homomorphism from $G_2$ to $G_1$ if for $g_1, g_2 \in G_2$,
+\[\phi^{-1}(g_1 g_2) = \phi^{-1}(g_1) \phi^{-1}(g_2)\]
+But as $\phi$ is bijective, we know that $a = \phi^{-1}(g_1)$ and $b = \phi^{-1}(g_2)$ are unique. Thus, 
+\begin{align*}
+    \phi(a) = g_1\\
+    \phi(b) = g_2
+\end{align*}
+and as $\phi$ is a homomorphism, 
+\[\phi(a)\phi(b) = \phi(ab) = g_1 g_2\]
+so 
+\[\phi^{-1}(g_1 g_2) = ab = \phi^{-1}(g_1)\phi^{-1}(g_2) \qed\]
+
+\color{black}
+\pagebreak
+
+\section*{2.21}
+\emph{Let $G$ be a group and consider}
+\[\phi : G \to G, \quad \phi(g) = g^{-1}\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item \emph{Prove that $\phi(\phi(g)) = g \quad \forall g \in G$}
+    
+    \color{blue}
+    Using the definition of $\phi$, 
+    \[\phi(\phi(g)) = \phi(g^{-1}) = (g^{-1})^{-1}\]
+    By Exercise 2.5c, this quantity equals $g \qed$ 
+    \color{black}
+
+    \item \emph{Prove that $\phi$ is a bijection}
+    
+    \color{blue}
+    To be a bijection, $\phi$ must be injective and surjective. 
+
+    For $\phi$ to be injective, 
+    \[\phi(g_1) = \phi(g_2) \implies g_1 = g_2 \quad \forall g_1, g_2 \in G\]
+    By definition of $\phi$, this is simply
+    \[g_1^{-1} = g_2^{-1} \implies g_1 = g_2\]
+    which follows directly from the uniqueness of inverses (consider $g_1 \cdot g_1^{-1} = g_1\cdot g_2^{-1} = e$) so $g_1$ and $g_2$ have the same inverse and thus $g_1 = g_2.$
+
+    Surjectivity is established iff $\forall g_1 \in G, \; \exists g_2 \in G : \phi(g_1) = g_2$. By the inverse axiom, $\phi(g_1)$ exists for all $g_1 \in G$ and by the uniqueness of inverses, $\exists ! g_2 \in G: g_1^{-1} = g_2$ which is a stronger claim than the barrier for surjectivity. 
+
+    Then as $\phi$ is injective and surjective, it is bijective. $\qed$
+
+    \color{black}
+    \item \emph{Prove that $\phi$ is a group homomorphism iff $G$ is an abelian group.}
+    
+    \color{blue}
+    Because $\phi: G \to G$, it is a homomorphism if 
+    \[\phi(g_1 \cdot g_2) = \phi(g_1) \cdot \phi(g_2)\]
+    by definition of $\phi$, this is just saying
+    \[(g_1 \cdot g_2)^{-1} = g_1^{-1} \cdot g_2^{-1}\]
+
+    Recall exercise 2.5b which proves for all groups with $g, g_2 \in G$, 
+    \[(g_1 \cdot g_2)^{-1} = g_2^{-1} \cdot g_1^{-1}\]
+
+    Thus, all that remains is to show that 
+    \[g_1^{-1} \cdot g_2^{-1} = g_2^{-1} \cdot g_1^{-1}\]
+    which by composition and association is 
+    \[g_1^{-1} \cdot (g_2^{-1} \cdot g_2) \cdot g_1 = g_2^{-1} \cdot g_1^{-1} \cdot g_2 \cdot g_1\]
+    \[e = g_2^{-1} \cdot g_1^{-1} \cdot g_2 \cdot g_1 \]
+    if and only if $g_1 \cdot g_2 = g_2 \cdot g_1$ such that 
+    \[g_2^{-1} \cdot g_1^{-1} \cdot g_2 \cdot g_1 = g_2^{-1} \cdot g_1^{-1} \cdot g_1 \cdot g_2 = g_2^{-1} \cdot e \cdot g_2 = e\]
+    which is true precisely when $G$ is an abelian group. $\qed$
+\end{enumerate}
+\end{document}

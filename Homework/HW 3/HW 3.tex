@@ -1,0 +1,385 @@
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{graphicx} 
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{array} 
+\usepackage{paralist} 
+\usepackage{verbatim}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+\usepackage{enumitem}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} 
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} 
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} %
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{empheq}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\ans}[1]{\boxed{\text{#1}}}
+\newcommand{\vecs}[1]{\langle #1\rangle}
+\renewcommand{\hat}[1]{\widehat{#1}}
+\newcommand{\F}[1]{\mathcal{F}(#1)}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand{\qed}{\quad \blacksquare}
+\newcommand{\brak}[1]{\langle #1 \rangle}
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\C}{\mathbb{C}}
+\renewcommand{\mod}{\; \text{mod}\; }
+
+\title{Math 1530: Homework 3}
+\author{Milan Capoor}
+\date{3 October 2023}
+
+\begin{document}
+\maketitle
+\section*{3.5} 
+    \emph{We have already seen the ring of Gaussian integers $\Z[i]$. More generally, for any integer $D$ that
+    is not the square of an integer, we can form a ring}
+    \[\Z[\sqrt D] = \{a + b\sqrt D : a, b \in \Z\}\]
+    \emph{If $D > 0$, then $\Z[\sqrt D]$ is a subring of $\R$, while if $D < 0$, then in any case it is a subring of $\mathbb C$}
+
+    \begin{enumerate}[label=(\alph*)]
+        \item Let $\alpha = 2 + 3\sqrt 5$ and $\beta = 1 - 2\sqrt 5$ be elements of $\Z[\sqrt 5]$. Compute the quantities
+        \[\alpha + \beta, \quad \alpha\cdot \beta, \quad \alpha^2\]
+
+        \color{blue}
+            \begin{align*}
+                \alpha + \beta &= (2 + 3\sqrt{5}) + (1 - 2\sqrt{5}) &= \boxed{3 + \sqrt 5}\\
+                \alpha * \beta &= (2 + 3\sqrt{5})(1 - 2\sqrt{5}) = 2 - 4\sqrt 5 + 3\sqrt 5 - 6(5) &= \boxed{-28 - \sqrt 5}\\
+                \alpha^2 &= (2 + 3\sqrt{5})(2 + 3\sqrt{5}) = 4 + 6\sqrt 5 + 6\sqrt 5 + 9(5) &= \boxed{49 + 12\sqrt 5}
+            \end{align*}
+        \color{black}
+
+        \item Prove that the map 
+        \[\phi: \Z[\sqrt D] \to \Z[\sqrt D], \quad \phi(a + b\sqrt D) = a - b\sqrt D\]
+        \emph{is a ring homomorphism. (For notational convenience, if $\alpha= a + b\sqrt D \in \Z[\sqrt D]$, then people often write $\overline \alpha = a - b \sqrt{D}$, similar to the notation for complex conjugation.)}
+        
+        \color{blue}
+            $\phi$ is a ring homomorphism if it satisfies the following three properties:
+            \begin{enumerate}
+                \item $\phi(1) = 1$
+                \[\phi(1 + 0\sqrt{D}) = 1 - 0\sqrt{D} = 1 \quad \checkmark \]
+
+                \item $\phi(a + b) = \phi(a) + \phi(b)$
+                \begin{align*}
+                    \phi([a_1 + a_2\sqrt D] + [b_1 + b_2\sqrt D]) &= \phi((a_1 + b_1) + (a_2 + b_2)\sqrt D)\\
+                    &= (a_1 + b_1) - (a_2 + b_2)\sqrt D\\
+                    &= a_1 + b_1 - a_2\sqrt D - b_2 \sqrt D\\
+                    &= [a_1 - a_2 \sqrt D] + [b_2 - b_2 \sqrt D]\\
+                    &= \phi(a_1 + a_2 \sqrt D) + \phi(b_1 + b_2 \sqrt D) \quad \checkmark
+                \end{align*}
+
+                \item $\phi(a \cdot b) = \phi(a) \cdot \phi(b)$
+                \begin{align*}
+                    \phi([a_1 + a_2\sqrt D] \cdot [b_1 + b_2\sqrt D]) &= \phi(a_1b_1 + a_1b_2\sqrt D + b_1a_2\sqrt D + a_2b_2D)\\
+                    &= \phi([a_1 b_1 + a_2b_2D] + [a_1b_2 + b_1a_2]\sqrt D)\\
+                    &= [a_1 b_1 + a_2b_2D] - [a_1b_2 + b_1a_2]\sqrt D\\
+                    &= a_1 b_1 + a_2b_2D - a_1b_2\sqrt D - b_1a_2 \sqrt D\\
+                    &= a_1 b_1 - a_1b_2\sqrt D - b_1a_2 \sqrt D + (a_2 \sqrt D)(b_2 \sqrt D)\\
+                    &= (a_1 - a_2\sqrt D)(b_1 - b_2\sqrt D)\\
+                    &= \phi(a_1 + a_2\sqrt D)\cdot \phi(b_1 + b_2\sqrt D) \quad \checkmark
+                \end{align*}
+            \end{enumerate}
+        \color{black}
+
+        \item With notation as in (b), prove that 
+        \[\alpha\cdot \overline \alpha \in \Z \quad \forall \alpha\in \Z[\sqrt D]\]
+
+        \color{blue}
+            Let $\alpha = a + b\sqrt D \in \Z[\sqrt D]$. Then 
+            \begin{align*}
+                \alpha \cdot \overline \alpha &= (a + b\sqrt D)(a - b\sqrt D)\\
+                &= a^2 -b^2D
+            \end{align*}
+            But we know that $a, b, D \in \Z$ so the quantity $a^2 - b^2D$ is in $\Z$. Thus, $\alpha \overline \alpha \in \Z. \qed$
+        \color{black}
+    \end{enumerate}
+\pagebreak
+
+\section*{3.10}
+    \emph{Prove that the map}
+    \[\C \to M_2(\R), \quad x + yi \mapsto \begin{pmatrix}
+        x & y\\
+        -y & x
+    \end{pmatrix}\]
+    \emph{as discussed in Example 3.8, is an injective ring homomorphism}
+
+    \color{blue}
+        First, we verify that the map $\phi$ is a homomorphism:
+        \begin{enumerate}
+            \item $\phi(1) = 1$
+            \[\phi(1 + 0i) = \begin{pmatrix}
+                1 & 0\\
+                0 & 1
+            \end{pmatrix}\]
+            which is the multiplicative identity in $M_2(\R) \quad \checkmark$
+
+            \item $\phi(a + b) = \phi(a) + \phi(b)$
+            \begin{align*}
+                \phi([a_1 + a_2i] + [b_1 + b_2i]) &= \phi([a_1 + b_1] + [a_2 + b_2]i)\\
+                &=\begin{pmatrix}
+                    a_1 + b_1 & a_2 + b_2\\
+                    -a_2 - b_2 & a_1 + b_1
+                \end{pmatrix} \\
+                &= \begin{pmatrix}
+                    a_1 & a_2\\
+                    -a_2 & a_1
+                \end{pmatrix} + \begin{pmatrix}
+                    b_1 & b_2\\
+                    -b_2 & b_1
+                \end{pmatrix}\\
+                &= \phi(a_1 + a_2i) + \phi(b_1 + b_2i) \quad \checkmark
+            \end{align*}
+
+            \item $\phi(a \cdot b) = \phi(a) \cdot \phi(b)$
+            \begin{align*}
+                \phi([a_1 + a_2i] \cdot [b_1 + b_2i]) &= \phi([a_1 b_1 - a_2 b_2] + [a_1b_2 + a_2b_1]i)\\
+                &= \begin{pmatrix}
+                    a_1 b_1 - a_2 b_2 & a_1b_2 + a_2b_1\\
+                    -a_1b_2 - a_2b_1 & a_1b_1 - a_2b_2
+                \end{pmatrix}\\
+                &= \begin{pmatrix}
+                    a_1 & a_2\\
+                    -a_2 & a_1
+                \end{pmatrix}\begin{pmatrix}
+                    b_1 & b_2\\
+                    -b_2 & b_1
+                \end{pmatrix}\\
+                &= \phi(a_1 + a_2i) \cdot \phi(b_1 + b_2i) \quad \checkmark
+            \end{align*}
+            So the mapping is a homomorphism. 
+
+            Now we need to show it is injective which amounts to showing that $\ker \phi = \{0\}$. Or, $\phi(a) = 0$ only for $a = 0$. 
+
+            First we check that $\phi(0) = 0$:
+            \[\phi(0) = \phi(0 + 0i) = \begin{pmatrix}
+                0 & 0\\
+                0 & 0
+            \end{pmatrix} \quad \checkmark\]
+            So now all that remains is to show that $\phi(a) \neq 0$ for $a \neq 0$. This is easy as 
+            \[\phi(a) = \begin{pmatrix}
+                a & 0\\
+                0 & a
+            \end{pmatrix}\]
+            with $a \in \R$ and $\R$ is a field so it is an integral domain. Thus there are no values $b \in \R - \{0\}$ for which $ab = 0$. Similarly, $a + b = 0$ only when $b = -a$. 
+            
+            Thus $\ker \phi = \{0\}$ and $\phi$ is an injective homomorphism. $\qed$
+        \end{enumerate}  
+    \color{black}
+\pagebreak
+
+\section*{3.20}
+    \emph{Prove that each of the following rings is not a field:}
+    \begin{enumerate}[label=(\alph*)]
+        \item $\Z[i]$
+        
+        \color{blue}
+            Let $a = 2 + 0i = 2$. However, $2$ does not have a multiplicative inverse in $\Z$ so we have found an element $a \in R$ with $a \neq 0$ that does not have a $b \in R$ with $ab = 1$. Thus, by definition, $\Z[i]$ is not a field. $\qed$
+        \color{black}
+
+        \item $\R[x]$
+        
+        \color{blue}
+            $\R[x]$ is the ring of polynomials $\left\{\sum_{i=0}^d a_i x^i: a_i \in \R, 0 \leq d\right\}$. Thus, exponents of negative degree are not in $\R[x]$. So we can identify the polynomial $x \in \R[x]$ which has no multiplicative inverse. Therefore, $\R[x]$ is not a field. $\qed$
+        \color{black}
+        
+        \item $\mathbb{H}$
+        
+        \color{blue}
+            $\mathbb{H}$ cannot be a field because it is non-commutative:
+            \[j \cdot i = -i \cdot j, \quad k \cdot i = -i\cdot k, \quad k \cdot j = -j \cdot k \qed\]
+        \color{black}
+        
+        \item $M_n(\R)$ if $n \geq 2$
+        
+        \color{blue}
+            $M_n(\R)$ is not a commutative ring so it cannot be a field:
+            \begin{align*}
+                \begin{pmatrix}
+                    a & b\\
+                    c & d
+                \end{pmatrix}\begin{pmatrix}
+                    e & f\\
+                    g & h
+                \end{pmatrix} &= \begin{pmatrix}
+                    ae + bg & af + bh\\
+                    ce + dg & cf + dh
+                \end{pmatrix}\\
+                \begin{pmatrix}
+                    e & f\\
+                    g & h
+                \end{pmatrix} \begin{pmatrix}
+                    a & b\\
+                    c & d
+                \end{pmatrix} &= \begin{pmatrix}
+                    ae + cf & be + df\\
+                    ag + ch & bg + dh
+                \end{pmatrix} \qed
+            \end{align*}
+        \color{black}
+    \end{enumerate}
+\pagebreak
+
+\section*{3.29} 
+    \begin{enumerate}[label=(\alph*)]
+        \item \emph{Let $R$ be a commutative ring, and suppose that its unit group $R^*$ is finite, say $n = \#R^*$. Prove that every element $a \in R^*$ satisfies} 
+        \[a^n  =1\]
+        \emph{Hint: Use Lagrange's Theorem, more specifically Corollary 2.50}
+
+        \color{blue}
+            By the Corollary of Lagrange's theorem, the order of any element $a \in R^*$ divides the order of the group, $n$. So, for some $k$,
+            \[n = k\cdot o(a)\]
+            Now consider $a^n$: 
+            \[a^{n} = a^{k\cdot o(a)} = (a^{o(a)})^k = 1^k = 1\]
+            Thus, $a^n = 1. \qed$
+        \color{black}
+
+        \item \emph{Let $p$ be a prime, and let $a \in \Z$ be an integer with $p\; \nmid a$ Use (a) to prove:}
+        \[\textbf{Fermat's Little Theorem:} \quad a^{p-1} \equiv 1 \mod p\] 
+        \emph{(Hint. Consider the unit group of $\Z/p\Z$.)}
+
+        \color{blue}
+            Consider the group $(\Z/p\Z)^*$. Because $p$ is prime, the order of the group is $p - 1$ (because the group is simply $\{1, 2,\, \dots,\, p\}$) By (a), we have an element in $\alpha \in (\Z/p\Z)^*$ for which 
+            \[\alpha^{p-1} = 1\]
+            But by the definition of $(\Z/p\Z)^*$, 
+            \[\alpha \in \{a \mod p: \gcd(a, p) = 1\}\] 
+            And as $p$ is prime, $a$ can be any number which is not a multiple of $p$. So 
+            \[(a \mod p)^{p-1} = 1 \implies a^{p - 1} \equiv 1 \mod p \qed\]
+        \color{black}
+    \end{enumerate}
+\pagebreak
+
+\section*{3.30}
+    \begin{enumerate}[label=(\alph*)]
+        \item \emph{Compute the unit group $(\Z/p\Z)^*$ for each of the primes $p = 7, 11, 13$. Which ones are cyclic?}
+        
+        \color{blue}
+            By Proposition 3.20,
+            \[(\Z/p\Z)^* = \{a \mod p: \gcd(a, p) = 1\}\]
+            
+            \begin{enumerate}
+                \item $p = 7$
+                
+                First we note that $\gcd(a, 7) = 1$ for all $1 \leq a < 7$. So 
+                \[(\Z/7\Z)^* = \{1, 2, 3, 4, 5, 6\}\]
+
+                It is cyclic because 
+                \begin{align*}
+                    3^2 &\equiv 2 \mod 7 \in (\Z/7\Z)^*\\
+                    3^3 &\equiv 6 \mod 7 \in (\Z/7\Z)^*\\
+                    3^4 &\equiv 4 \mod 7 \in (\Z/7\Z)^*\\
+                    3^5 &\equiv 5 \mod 7 \in (\Z/7\Z)^*\\
+                    3^6 &\equiv 1 \mod 7 \in (\Z/7\Z)^*\\
+                    3^7 &\equiv 3 \mod 7 \in (\Z/7\Z)^*
+                \end{align*}
+
+                \item $p = 11$
+                
+                Again, because $p$ is prime, 
+                \[(\Z/11\Z)^* = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}\]
+                and it is cyclic:
+                \begin{align*}
+                    2^1 &\equiv 2 \mod 11 \in (\Z/11\Z)^*\\
+                    2^2 &\equiv 4 \mod 11 \in (\Z/11\Z)^*\\
+                    2^3 &\equiv 8 \mod 11 \in (\Z/11\Z)^*\\
+                    2^4 &\equiv 5 \mod 11 \in (\Z/11\Z)^*\\
+                    2^5 &\equiv 10 \mod 11 \in (\Z/11\Z)^*\\
+                    2^6 &\equiv 9 \mod 11 \in (\Z/11\Z)^*\\
+                    2^11 &\equiv 7 \mod 11 \in (\Z/11\Z)^*\\
+                    2^8 &\equiv 3 \mod 11 \in (\Z/11\Z)^*\\
+                    2^9 &\equiv 6 \mod 11 \in (\Z/11\Z)^*\\
+                    2^{10} &\equiv 1 \mod 11 \in (\Z/11\Z)^*                   
+                \end{align*}
+
+                \item $p = 13$
+                \[(\Z/13\Z)^* = \{n: 1 \leq n < 13, \; n \in \Z\}\]
+                With generator $2$:
+                \begin{align*}
+                    2^1 &\equiv 2 \mod 13 \in (\Z/13\Z)^*\\
+                    2^2 &\equiv 4 \mod 13 \in (\Z/13\Z)^*\\
+                    2^3 &\equiv 8 \mod 13 \in (\Z/13\Z)^*\\
+                    2^4 &\equiv 3 \mod 13 \in (\Z/13\Z)^*\\
+                    2^5 &\equiv 6 \mod 13 \in (\Z/13\Z)^*\\
+                    2^6 &\equiv 12 \mod 13 \in (\Z/13\Z)^*\\
+                    2^7 &\equiv 11 \mod 13 \in (\Z/13\Z)^*\\
+                    2^8 &\equiv 9 \mod 13 \in (\Z/13\Z)^*\\
+                    2^9 &\equiv 5 \mod 13 \in (\Z/13\Z)^*\\
+                    2^{10} &\equiv 10 \mod 13 \in (\Z/13\Z)^*\\
+                    2^{11} &\equiv 7 \mod 13 \in (\Z/13\Z)^*\\
+                    2^{12} &\equiv 1 \mod 13 \in (\Z/13\Z)^*
+                \end{align*}
+            \end{enumerate}
+        \color{black}
+
+        \item \emph{Compute the unit group $(\Z/ m\Z)^*$ for each of the composite numbers m = 8, 9, 15. Which ones are cyclic?}
+        
+        \color{blue}
+            \begin{enumerate}
+                \item $m = 8$
+                \[(\Z/8)^* = \{1, 3, 5, 7\}\]
+                Is not cyclic because there is not a generator. 
+
+                \item $m = 9$
+                \[(\Z/9\Z)^* = \{1, 2, 4, 5, 7, 8\}\]
+                Is cyclic because 
+                \begin{align*}
+                    2^1 &\equiv 2 \mod 9 \in (\Z/9\Z)^*\\
+                    2^2 &\equiv 4 \mod 9 \in (\Z/9\Z)^*\\
+                    2^3 &\equiv 8 \mod 9 \in (\Z/9\Z)^*\\
+                    2^4 &\equiv 7 \mod 9 \in (\Z/9\Z)^*\\
+                    2^5 &\equiv 5 \mod 9 \in (\Z/9\Z)^*\\
+                    2^6 &\equiv 1 \mod 9 \in (\Z/9\Z)^*\\
+                    5^1 &\equiv 5 \mod 9 \in (\Z/9\Z)^*\\
+                    5^2 &\equiv 7 \mod 9 \in (\Z/9\Z)^*\\
+                    5^3 &\equiv 8 \mod 9 \in (\Z/9\Z)^*\\
+                    5^4 &\equiv 4 \mod 9 \in (\Z/9\Z)^*\\
+                    5^5 &\equiv 2 \mod 9 \in (\Z/9\Z)^*\\
+                    5^6 &\equiv 1 \mod 9 \in (\Z/9\Z)^*
+                \end{align*}
+
+                \item $m = 15$
+                \[(\Z/15\Z)^* = \{1, 2, 4, 7, 8, 9, 11, 13, 14\}\]
+                Is, once again, not cyclic. 
+            \end{enumerate}
+        \color{black}
+    \end{enumerate}
+
+
+\pagebreak
+
+\section*{3.32}
+\emph{Prove that the product ring $\Z/2\Z \times \Z/3\Z$ is isomorphic to the ring $\Z/6\Z$ by writing down an
+explicit isomorphism $\Z/6\Z \to \Z/2\Z \times \Z/3\Z$}
+
+\color{blue}
+    $\phi(a \mod 6) = (a \mod 2, a\mod 3)$ is an isomorphism from $\Z/6 \to \Z/2 \times \Z/3$ by Example 2.55 because $\gcd(3, 2) = 1$ and $3\cdot 2 = 6$.
+
+    Therefore, the product ring $\Z/2 \times \Z/3$ is isomorphic to $\Z/6. \qed$
+
+\color{black}
+\end{document}
